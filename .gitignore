@@ -1,0 +1,61 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+backend/venvBackend/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+
+# Logs and runtime files
+*.log
+logs/
+*.pid
+*.sqlite
+*.sqlite3
+
+# Build and packaging output
+build/
+dist/
+*.egg-info/
+
+# Jupyter and notebooks runtime
+.ipynb_checkpoints/
+
+# Node and frontend tooling
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.next/
+.nuxt/
+.svelte-kit/
+coverage/
+frontend/dist/
+frontend/build/
+
+# Editor and OS files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
