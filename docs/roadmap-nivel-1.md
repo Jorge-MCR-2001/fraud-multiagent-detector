@@ -68,7 +68,7 @@ Detector de Fraudes Multi Agentico - Nivel 01
 
 -> Notas:
     - No incluye LLM, RAG, Vector Database, Web Search, Human in Loop
-    - Se añadio manualmente metricas dentro de fraud_policy.json para mayor trazabilidad de la decicion del agente PolicyEvaluationAgent
+    - Se añadio manualmente metricas dentro de fraud_policies.json para mayor trazabilidad de la decicion del agente PolicyEvaluationAgent
     - services/policy_engine.py solo debe sugerir que decision / confidence / politica debe usar el agente
 
 -> Pruebas:

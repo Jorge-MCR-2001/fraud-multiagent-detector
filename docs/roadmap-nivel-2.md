@@ -31,7 +31,14 @@ Detector de Fraudes Multi Agentico - Niver 02
 -> Actividades:
 
     - Preparar la base documental mendiante RAG -> Crear un pipeline de creacion del Knowldege Base
-    
+    - Se hace nota de la diferencia de las fuentes de informacion:
+        -> fraud_policies.json = fuente canoncia estructurada / funcion: motor de sugerencia de decisiones
+        -> fraud_policy.md = representación documental para RAG / funcion: explicación de decisiones    
+
+
+
+
+
 
     - Migrar funcionalidades basicas a arquitectura de Grafos
         -> services/fraud_engine.py ---> orquestador
@@ -81,7 +88,7 @@ Detector de Fraudes Multi Agentico - Niver 02
 
 -> Notas:
     - No incluye LLM, RAG, Vector Database, Web Search, Human in Loop
-    - Se añadio manualmente metricas dentro de fraud_policy.json para mayor trazabilidad de la decicion del agente PolicyEvaluationAgent
+    - Se añadio manualmente metricas dentro de fraud_policies.json para mayor trazabilidad de la decicion del agente PolicyEvaluationAgent
     - services/policy_engine.py solo debe sugerir que decision / confidence / politica debe usar el agente
 
 -> Pruebas:
