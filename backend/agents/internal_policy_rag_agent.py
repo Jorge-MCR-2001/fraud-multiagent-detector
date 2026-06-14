@@ -3,17 +3,17 @@ from typing import Dict, Any
 from agents.base_agent import BaseAgent
 from rag.rag_retriever import retrieve_policy_context
 
-class InternalPolocyRagAgent(BaseAgent):
+class InternalPolicyRagAgent(BaseAgent):
 
     """
         Recupera evidencia interna de politicas internas por RAG
-        - Lee señales detectadas por BehaivorPatternAgent
+        - Lee señales detectadas por BehaviorPatternAgent
         - Consulta al vectorstore generado por el archivo fraud_policies.json
         - No toma decisiones finales
     """
 
     # Asignar nombre al Agente
-    name: str = "InternalPolocyRagAgent"
+    name: str = "InternalPolicyRagAgent"
 
     def run(self, state: Dict[str, Any]) -> Dict[str, Any]:
 

@@ -16,7 +16,7 @@ class PolicyEvaluationAgent(BaseAgent):
         signal_tags = state.get("signal_tags", [])
 
         # Validar existencia de tags de señales
-        # "BehaivoralPatternAgent" debe haber creado "signal_tags"
+        # "BehavioralPatternAgent" debe haber creado "signal_tags"
         if signal_tags is None:
             self.add_error(
                 state=state,

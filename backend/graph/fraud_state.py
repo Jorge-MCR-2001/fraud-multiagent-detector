@@ -25,6 +25,10 @@ class FraudEvaluationState(TypedDict, total = False):
     policy_suggested_decision: Optional[str]
     policy_suggested_confidence: Optional[float]
 
+    # Rag interno
+    rag_query: Optional[str]
+    rag_policy_context: List[Dict[str, Any]]
+
     # Decisiones finales: Accion / Confianza
     decision: Optional[str]
     confidence: Optional[float]

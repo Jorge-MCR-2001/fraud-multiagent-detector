@@ -3,10 +3,10 @@ from agents.base_agent import BaseAgent
 from services.signal_detector import detect_signals
 
 
-class BehaivoralPatternAgent(BaseAgent):
+class BehavioralPatternAgent(BaseAgent):
     
     # Asignar nombre al agente
-    name: str = "BehaivoralPatternAgent"
+    name: str = "BehavioralPatternAgent"
 
     def run(self, state: Dict[str, Any]) -> Dict[str, Any]:
 
