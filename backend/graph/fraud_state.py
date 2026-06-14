@@ -34,6 +34,13 @@ class FraudEvaluationState(TypedDict, total = False):
     citations_external: List[Dict[str, Any]]
     external_threat_context: List[Dict[str, Any]]
 
+    # Recopilacion de evidencias
+    evidence_bundle: Dict[str, Any]
+
+    # Debate de Agentes
+    pro_fraud_argument: Dict[str, Any]
+    pro_customer_argument: Dict[str, Any]
+
     # Decisiones finales: Accion / Confianza
     decision: Optional[str]
     confidence: Optional[float]
@@ -41,6 +48,10 @@ class FraudEvaluationState(TypedDict, total = False):
     # Trazabilidad de Decision / agentes ejecutados
     decision_trace: List[Dict[str, Any]]
     agent_trace: List[Dict[str, Any]]
+
+    # Estados para Agente de desicion y revision de un Humano
+    decision_rationale: Optional[str]
+    requires_human_review: Optional[bool]
 
     # Manejo de Errores
     errors: List[Dict[str, Any]]

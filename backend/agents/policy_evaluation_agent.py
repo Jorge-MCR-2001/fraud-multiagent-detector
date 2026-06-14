@@ -35,15 +35,21 @@ class PolicyEvaluationAgent(BaseAgent):
             )
 
             state["matched_policies"] = result.get("matched_policies", []) # Guardar y garantizar el valor del estado
-            state["citations_internal"] = result.get("citations_internal", []) # Guardar y garantizar el valor del estado
             state["policy_suggested_decision"] = result.get("policy_suggested_decision") # Guardar y garantizar el valor del estado
             state["policy_suggested_confidence"] = result.get("policy_suggested_confidence") # Guardar y garantizar el valor del estado
+
+            # No sobrescribir citations_internal si ya fueron generadas por RAG.
+            state.setdefault("citations_internal", [])
 
             self.add_trace(
                 state=state,
                 status="completed",
                 details={
                     "matched_policies_count": len(state["matched_policies"]), # Cantidad de politicas que hicieron match
+                    "matched_policies": [
+                        policy.get("policy_id")
+                        for policy in state["matched_policies"]
+                    ],
                     "policy_suggested_decision": state["policy_suggested_decision"] # Politica sugerida por el agente
                 }
             )
