@@ -1,10 +1,22 @@
 import json
-import re
-
+from datetime import datetime
 from typing import List, Dict, Any, Optional
 
-from settings.paths import FRAUD_POLICY_DIR, POLICY_INDEX_DIR, POLICY_CHUNKS_JSON
-from services.load_resources import load_json_file
+import numpy as np
+
+from rag.embedding_client import EmbeddingClient
+from settings.paths import (
+    EMBEDDING_PROVIDER,
+    EMBEDDING_MODEL,
+    EMBEDDING_DIMENSIONS,
+    FRAUD_POLICY_DIR,
+    POLICY_INDEX_DIR,
+    POLICY_CHUNKS_JSON,
+    POLICY_EMBEDDINGS_NPY,
+    EMBEDDING_CONFIG_JSON
+)
+
+
 
 def build_policy_index() -> List[Dict[str, Any]]:
     
@@ -25,14 +37,35 @@ def build_policy_index() -> List[Dict[str, Any]]:
         chunk = _build_policy_chunk(policy)
         chunks.append(chunk)
 
-    POLICY_CHUNKS_JSON.write_text( # Inyecta los chunks en un doc json en texto plano
-        json.dumps(chunks, ensure_ascii=False, indent=2), # Convierte la lista en texto json
-        encoding="utf-8"
+    text_to_embed = []
+
+    # Apliar los textos para crear el vector store
+    for chunk in chunks:
+        text_to_embed.append(chunk["content"])
+
+    # Crear el objeto
+    embedding_client = EmbeddingClient()
+    embeddings = embedding_client.embed_texts(text_to_embed)
+
+    # Guardar los chunks generados
+    _save_chunks(chunks)
+    _save_embeddings(embeddings)
+
+    # Guardar la configuración de los embeddings
+    _save_embeddings_config(
+        chunk_count = len(chunks),
+        embeddings_dimension = int(embeddings.shape[1])
     )
 
     return chunks
 
 def _load_policies() -> List[Dict[str, Any]]:
+
+    # Garantiza la exitencia de la fuente de recursos para politicas internas
+    if not FRAUD_POLICY_DIR.exists():
+        raise FileNotFoundError(
+            f"No se encontró la fuente oficial de políticas: {FRAUD_POLICY_DIR}"
+        )
 
     # Abrir archivo de politicas y cargar en el sistem
     with open(FRAUD_POLICY_DIR, "r", encoding="utf-8") as json_file:
@@ -54,8 +87,12 @@ def _build_policy_chunk(policy: List[Dict[str, Any]]) -> Dict[str, Any]:
     if not policy_id:
         raise ValueError(f"Politica sin policy_id: {policy_id}")
     
-    action = _infer_action(rule)
-    required_signals = _infer_required_signals(policy_id=policy_id,rule=rule)
+    suggested_action = _parse_action_from_rule(rule)
+
+    required_signals = _map_policy_to_internal_signals(
+        policy_id=policy_id,
+        rule=rule
+    )
 
     chunk_id = _build_chunk_id(policy_id)
 
@@ -63,7 +100,7 @@ def _build_policy_chunk(policy: List[Dict[str, Any]]) -> Dict[str, Any]:
         policy_id=policy_id,
         rule=rule,
         version=version,
-        action=action,
+        suggested_action=suggested_action,
         required_signals=required_signals
     )
 
@@ -72,29 +109,28 @@ def _build_policy_chunk(policy: List[Dict[str, Any]]) -> Dict[str, Any]:
         "chunk_id": chunk_id,
         "version": version,
         "rule": rule,
-        "suggested_action": action,
+        "suggested_action": suggested_action,
         "required_signals": required_signals,
         "content": content,
-        "keywords": _build_keywords(
-            policy_id=policy_id,
-            rule=rule,
-            action=action,
-            required_signals=required_signals
-        )
+        "source": str(FRAUD_POLICY_DIR)
     }
 
 
-def _infer_action(rule: str) -> Optional[str]:
+def _parse_action_from_rule(rule: str) -> Optional[str]:
 
-    # Realiza la estración de la acción de la regla citada
+    """
+        Extrae una accion explicita de las reglas
+        - Se obtienen sugerencia de acciones / decisiones
+        - Se parsea la politica
+    """
 
     if not rule: # Garantiza la existencia de la regla
         return None 
     
-    if "->" in rule:
+    if "->" in rule: # Segun la metrica
         return rule.split("->")[-1].strip()
     
-    if "→" in rule:
+    if "→" in rule: # Segun la metrica
         return rule.split("→")[-1].strip()
     
     upper_rule = rule.upper()
@@ -112,18 +148,35 @@ def _infer_action(rule: str) -> Optional[str]:
         if action in upper_rule:
             return action
 
-def _infer_required_signals(policy_id: str, rule: str) -> List[str]:
+def _map_policy_to_internal_signals(policy_id: str, rule: str) -> List[str]:
 
-    # Asignación de reglas en la data curada
+    """
+        Mapea politicas oficiales a señales internas del sistema
+        - No es una decision final
+        - Recuperacioon gobernada para recuperacion y trazabilidad
+    """
 
-    normalize_rule = rule.lower()
-
+    # Realiza un levantamiento de señales en función a politicas o ratros marcados -> Preparacion de datos
+    
     if policy_id == "FP-01":
         return ["signal_a", "signal_b"]
     
     if policy_id == "FP-02":
         return ["signal_c", "signal_d"]
 
-    # Fallback por     
+    normalized_rule = rule.lower()
+    signals = []
 
-    return
+    if "monto" in normalized_rule:
+        signals.append("signal_a")
+
+    if "horario" in normalized_rule:
+        signals.append("signal_b")
+
+    if "internacional" in normalized_rule or "país" in normalized_rule or "pais" in normalized_rule:
+        signals.append("signal_c")
+
+    if "dispositivo" in normalized_rule:
+        signals.append("signal_d")
+
+    return signals
