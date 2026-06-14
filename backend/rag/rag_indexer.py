@@ -53,7 +53,7 @@ def build_policy_index() -> List[Dict[str, Any]]:
 
     # Guardar la configuración de los embeddings
     _save_embeddings_config(
-        chunk_count = len(chunks),
+        chunks_count = len(chunks),
         embeddings_dimension = int(embeddings.shape[1])
     )
 
@@ -188,11 +188,11 @@ def _build_chunk_id(policy_id: str) -> str:
 
 def _build_content(policy_id: str, rule: str, version: str, suggested_action: Optional[str], required_signals: List[str]) -> str:
     return (
-        f"Politica interna: {policy_id}"
-        f"Version: {version}"
-        f"Regla oficial: {rule}"
-        f"Accion sugerida explicita en la regla: {suggested_action}",
-        f"Señales internas asociadas: {', '.join(required_signals)}"
+        f"Politica interna: {policy_id}, "
+        f"Version: {version},  "
+        f"Regla oficial: {rule}, "
+        f"Accion sugerida explicita en la regla: {suggested_action}, "
+        f"Señales internas asociadas: {', '.join(required_signals)}, "
         f"Esta politica se usa como evidencia interna recuperada por RAG, para agentes posteriores. NO REPRESENTA la decision final."
     )
 
@@ -215,7 +215,7 @@ def _save_embeddings_config(chunks_count: int, embeddings_dimension: int) -> Non
         "embeddgins_file": str(POLICY_EMBEDDINGS_NPY),
         "chunks_count": chunks_count,
         "embedding_dimension": embeddings_dimension,
-        "created_at": datetime.utcnow().isoformat + "Z"
+        "created_at": datetime.utcnow().isoformat() + "Z"
     }
 
     EMBEDDING_CONFIG_JSON.write_text(
@@ -224,7 +224,7 @@ def _save_embeddings_config(chunks_count: int, embeddings_dimension: int) -> Non
     )
 
 if __name__ == "__main__":
-    
+
     indexed_chunks = build_policy_index()
 
     print(f"Policy chunks indexed: {len(indexed_chunks)}")

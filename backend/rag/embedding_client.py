@@ -64,7 +64,7 @@ class EmbeddingClient:
         request_payload = {
             "model": self.model,
             "input": clean_texts,
-            "encodign_format": "float"
+            "encoding_format": "float"
         }
 
         if EMBEDDING_DIMENSIONS is not None: # Validar si se inserto dimension de los embeddings

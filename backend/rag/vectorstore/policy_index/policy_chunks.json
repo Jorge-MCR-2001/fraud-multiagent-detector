@@ -1,0 +1,28 @@
+[
+  {
+    "policy_id": "FP-01",
+    "chunk_id": "policy-fp01-001",
+    "version": "2025.1",
+    "rule": "Monto > 3x promedio habitual y horario fuera de rango -> CHALLENGE",
+    "suggested_action": "CHALLENGE",
+    "required_signals": [
+      "signal_a",
+      "signal_b"
+    ],
+    "content": "Politica interna: FP-01, Version: 2025.1,  Regla oficial: Monto > 3x promedio habitual y horario fuera de rango -> CHALLENGE, Accion sugerida explicita en la regla: CHALLENGE, Señales internas asociadas: signal_a, signal_b, Esta politica se usa como evidencia interna recuperada por RAG, para agentes posteriores. NO REPRESENTA la decision final.",
+    "source": "C:\\Users\\JCristobal\\Desktop\\Jorge-GlexcoRobotics\\Jorge_Cristobal\\credicorp-ai-engineer\\credicorp_ws\\multi-agent-fraud-detection-1.0.0\\backend\\resources\\fraud_policies_nivel_02.json"
+  },
+  {
+    "policy_id": "FP-02",
+    "chunk_id": "policy-fp02-001",
+    "version": "2025.1",
+    "rule": "Transacción internacional y dispositivo nuevo -> ESCALATE_TO_HUMAN",
+    "suggested_action": "ESCALATE_TO_HUMAN",
+    "required_signals": [
+      "signal_c",
+      "signal_d"
+    ],
+    "content": "Politica interna: FP-02, Version: 2025.1,  Regla oficial: Transacción internacional y dispositivo nuevo -> ESCALATE_TO_HUMAN, Accion sugerida explicita en la regla: ESCALATE_TO_HUMAN, Señales internas asociadas: signal_c, signal_d, Esta politica se usa como evidencia interna recuperada por RAG, para agentes posteriores. NO REPRESENTA la decision final.",
+    "source": "C:\\Users\\JCristobal\\Desktop\\Jorge-GlexcoRobotics\\Jorge_Cristobal\\credicorp-ai-engineer\\credicorp_ws\\multi-agent-fraud-detection-1.0.0\\backend\\resources\\fraud_policies_nivel_02.json"
+  }
+]
