@@ -60,7 +60,7 @@ class InternalPolicyRagAgent(BaseAgent):
         except Exception as exc:
             self.add_error(
                 state=state,
-                message="error",
+                message="Error durante recuperación semantica por RAG",
                 details={
                     "error": str(exc)
                 }

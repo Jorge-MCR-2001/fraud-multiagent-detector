@@ -55,7 +55,7 @@ class PolicyEvaluationAgent(BaseAgent):
                 state=state,
                 message="Error durante la evaluación de politicas internas",
                 details={
-                    "error": exc,
+                    "error": str(exc),
                 }
             )
             return state

@@ -70,6 +70,7 @@ class EmbeddingClient:
         if EMBEDDING_DIMENSIONS is not None: # Validar si se inserto dimension de los embeddings
             request_payload["dimensions"] = EMBEDDING_DIMENSIONS
 
+        # Generar embedding en base a modelo OpenSource
         response = self.client.embeddings.create(**request_payload)
 
         vectors = []

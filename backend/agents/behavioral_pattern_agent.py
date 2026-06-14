@@ -60,7 +60,7 @@ class BehavioralPatternAgent(BaseAgent):
                 state=state,
                 message="Error durante la detección de patrones de comportamiento",
                 details={
-                    "error": exc,
+                    "error": str(exc),
                 }
             )
             return state

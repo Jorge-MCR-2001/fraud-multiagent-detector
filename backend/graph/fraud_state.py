@@ -29,6 +29,11 @@ class FraudEvaluationState(TypedDict, total = False):
     rag_query: Optional[str]
     rag_policy_context: List[Dict[str, Any]]
 
+    # Recuperacion inteligente externa
+    external_signals: List[str]
+    citations_external: List[Dict[str, Any]]
+    external_threat_context: List[Dict[str, Any]]
+
     # Decisiones finales: Accion / Confianza
     decision: Optional[str]
     confidence: Optional[float]

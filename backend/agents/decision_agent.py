@@ -58,9 +58,9 @@ class DecisionAgent(BaseAgent):
         except Exception as exc:
             self.add_error(
                 state=state,
-                message="O . . ",
+                message="Error durante desicion del Agente",
                 details={
-                    "error": exc
+                    "error": str(exc)
                 }
             )
 
