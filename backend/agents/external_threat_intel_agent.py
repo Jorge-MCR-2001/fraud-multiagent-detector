@@ -56,3 +56,5 @@ class ExternalThreatIntelAgent(BaseAgent):
                 }
             )
 
+            return state
+

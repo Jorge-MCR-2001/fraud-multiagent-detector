@@ -13,7 +13,7 @@ class InternalPolicyRagAgent(BaseAgent):
     """
 
     # Asignar nombre al Agente
-    name: str = "InternalPolicyRagAgent"
+    name: str = "InternalPolicyRAGAgent"
 
     def run(self, state: Dict[str, Any]) -> Dict[str, Any]:
 
