@@ -1,11 +1,13 @@
 from pathlib import Path
+from dotenv import load_dotenv, find_dotenv
 import os
 
-# Raiz del proyecto
+# Raiz del proyecto y Backend
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 
-# Backend
 BACKEND_DIR = PROJECT_ROOT / "backend"
+ENV_FILE = BACKEND_DIR / ".env"
+find_dotenv(load_dotenv(ENV_FILE))
 
 # Ruta a DATA
 DATA_DIR = BACKEND_DIR / "data"
