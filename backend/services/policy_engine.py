@@ -66,7 +66,65 @@ def _parse_action_from_rule(rule: str) -> Optional[str]:
     
     # Extrae la desicion explicita de la regla
 
+    if not rule: # Garantiza la existencia de la regla
+        return None
+
+    if "→" in rule:  # Segun la metrica
+        return rule.split("→")[-1].strip()
+
+    if "->" in rule: # Segun la metrica
+        return rule.split("->")[-1].strip()
+
+    upper_rule = rule.upper()
+
+    # Trazabilidad de acciónes conocidas
+    known_actions = [
+        "APPROVE",
+        "CHALLENGE",
+        "BLOCK",
+        "ESCALATE_TO_HUMAN"
+    ]
+
+    # Retorno de acción reconocida
+    for action in known_actions:
+        if action in upper_rule:
+            return action
+        
+    return None
+
+
+def _map_policy_to_internal_signals(policy_id: str, rule: str) -> List[str]:
+
+    """
+        Mapea politicas oficiales a señales internas del sistema
+        - No es una decision final
+        - Recuperacioon gobernada para recuperacion y trazabilidad
+    """
+
+    # Realiza un levantamiento de señales en función a politicas o ratros marcados -> Preparacion de datos
+
+    if policy_id == "FP-01":
+        return ["signal_a", "signal_b"]
     
+    if policy_id == "FP-02":
+        return ["signal_c", "signal_d"]
+
+    normalized_rule = rule.lower()
+    signals = []
+
+    if "monto" in normalized_rule:
+        signals.append("signal_a")
+
+    if "horario" in normalized_rule:
+        signals.append("signal_b")
+
+    if "internacional" in normalized_rule or "país" in normalized_rule or "pais" in normalized_rule:
+        signals.append("signal_c")
+
+    if "dispositivo" in normalized_rule:
+        signals.append("signal_d")
+
+    return signals
 
 
 def _select_highest_severity_policy(matched_policies:List[Dict[str, Any]]) -> Optional[Dict[str, Any]]:

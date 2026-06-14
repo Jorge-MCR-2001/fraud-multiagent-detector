@@ -147,6 +147,8 @@ def _parse_action_from_rule(rule: str) -> Optional[str]:
     for action in known_actions:
         if action in upper_rule:
             return action
+        
+    return None
 
 def _map_policy_to_internal_signals(policy_id: str, rule: str) -> List[str]:
 
