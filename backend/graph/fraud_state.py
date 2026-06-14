@@ -22,7 +22,7 @@ class FraudEvaluationState(TypedDict, total = False):
     citations_internal: List[Dict[str, Any]]
 
     # Sugerencia de informacion relativa a politicas internas
-    policy_suggested_decicion: Optional[str]
+    policy_suggested_decision: Optional[str]
     policy_suggested_confidence: Optional[float]
 
     # Decisiones finales: Accion / Confianza

@@ -24,7 +24,7 @@ class BaseAgent(ABC):
     def add_error(self, state: Dict[str, Any], message: str, details: Optional[Dict[str, Any]] = None) -> None:
 
         # Añadir un rastro de error controlado para el agente
-        state.setdefault("error", []).append(
+        state.setdefault("errors", []).append(
             {
                 "agent": self.name,
                 "message": message,
