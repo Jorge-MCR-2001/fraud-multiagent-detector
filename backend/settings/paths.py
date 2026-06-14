@@ -18,9 +18,9 @@ FRAUD_POLICY_DIR = RESOURCES_DIR / "fraud_policies_nivel_02.json"
 # Rutas relacionadas a herramienta RAG
 RAG_DIR = BACKEND_DIR / "rag"
 
-#KNOWLEDGE_BASE_DIR = RAG_DIR / "knowledge_base"
 VECTORSTORE_DIR = RAG_DIR / "vectorstore"
 POLICY_INDEX_DIR = VECTORSTORE_DIR / "policy_index"
 
-#FRAUD_POLICIES_MD = KNOWLEDGE_BASE_DIR / "fraud_policies.md"
 POLICY_CHUNKS_JSON = POLICY_INDEX_DIR / "policy_chunks.json"
+POLICY_EMBEDDINGS_NPY = POLICY_INDEX_DIR / "policy_embeddings.npy"
+EMBEDDING_CONFIG_JSON = POLICY_INDEX_DIR / "embedding_config.json"
