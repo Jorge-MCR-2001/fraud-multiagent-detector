@@ -24,15 +24,6 @@ class PolicyEvaluationAgent(BaseAgent):
             )
             return state
 
-        # Carga de Politicas
-        policies = load_json_file()
-
-        # Obtener un resultado de contraste con las politicas actuales
-        result = evaluate_policies(
-            signal_tags=signal_tags,
-            policies=policies
-        )
-
         try:
             # Carga de Politicas
             policies = load_json_file()

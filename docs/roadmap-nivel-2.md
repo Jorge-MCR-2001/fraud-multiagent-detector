@@ -32,10 +32,14 @@ Detector de Fraudes Multi Agentico - Niver 02
 
     - Preparar la base documental mendiante RAG -> Crear un pipeline de creacion del Knowldege Base
     - Se hace nota de la diferencia de las fuentes de informacion:
-        -> fraud_policies.json = fuente canoncia estructurada / funcion: motor de sugerencia de decisiones
-        -> fraud_policy.md = representación documental para RAG / funcion: explicación de decisiones    
-
-
+        -> fraud_policies.json -> fuente canoncia estructurada / funcion: motor de sugerencia de decisiones
+        -> policy_chunks.json         → versión enriquecida para búsqueda RAG
+    -> Se implementan pipelines para la construcción del rag:
+        -> rag_indexer.py -> transforma json en chunks
+        -> policy_chunks.py -> indice local tipo vectorstore
+        -> rag_retiever.py -> recupera las politicas por señales y/o por contexto
+        -> Internal Policy RAG Agent -> Agente que realiza la recuperación de contexto para el grafo
+    -> Para la construcción del CHUNK JSON, se considera 1 Diccionario de Politica x Chunk
 
 
 
