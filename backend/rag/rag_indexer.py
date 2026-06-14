@@ -157,7 +157,7 @@ def _map_policy_to_internal_signals(policy_id: str, rule: str) -> List[str]:
     """
 
     # Realiza un levantamiento de señales en función a politicas o ratros marcados -> Preparacion de datos
-    
+
     if policy_id == "FP-01":
         return ["signal_a", "signal_b"]
     
@@ -180,3 +180,19 @@ def _map_policy_to_internal_signals(policy_id: str, rule: str) -> List[str]:
         signals.append("signal_d")
 
     return signals
+
+def _build_chunk_id(policy_id: str) -> str:
+    normalized = policy_id.lower().replace("-","")
+    chunk_id = f"policy-{normalized}-001"
+    return chunk_id
+
+def _build_content(policy_id: str, rule: str, version: str, suggested_action: Optional[str], required_signals: List[str]) -> str:
+    return (
+        f"Politica interna: {policy_id}"
+        f"Version: {version}"
+        f"Regla oficial: {rule}"
+        f"Accion sugerida explicita en la regla: {suggested_action}",
+        f"Señales internas asociadas: {', '.join(required_signals)}"
+        f"Esta politica se usa como evidencia interna recuperada por RAG, para agentes posteriores. NO REPRESENTA la decision final."
+    )
+
