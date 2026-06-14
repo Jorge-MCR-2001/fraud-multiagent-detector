@@ -16,6 +16,8 @@ TRANSACTIONS_DIR = DATA_DIR / "transactions.csv"
 # ------------------------------------- Ruta a Resources -------------------------------------
 RESOURCES_DIR = BACKEND_DIR / "resources"
 FRAUD_POLICY_DIR = RESOURCES_DIR / "fraud_policies_nivel_02.json"
+EXTERNAL_THREAT_CONTEXT_JSON = RESOURCES_DIR / "external_threat_context.json"
+
 
 # ------------------------------------- Ruta a RAG -------------------------------------
 RAG_DIR = BACKEND_DIR / "rag"

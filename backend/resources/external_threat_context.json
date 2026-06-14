@@ -1,0 +1,29 @@
+[
+  {
+    "threat_id": "EXT-001",
+    "merchant_id": "M-002",
+    "risk_level": "MEDIUM",
+    "signal": "Alerta externa en merchant",
+    "summary": "Se identificó un incremento reciente de transacciones anómalas asociadas al merchant M-002.",
+    "url": "https://example.com/fraud-alert-merchant-m002",
+    "source_type": "governed_mock_source"
+  },
+  {
+    "threat_id": "EXT-002",
+    "country": "US",
+    "risk_level": "HIGH",
+    "signal": "País con alerta transaccional reciente",
+    "summary": "Se detectaron reportes recientes de fraude en transacciones transfronterizas hacia este país.",
+    "url": "https://example.com/cross-border-fraud-alert-us",
+    "source_type": "governed_mock_source"
+  },
+  {
+    "threat_id": "EXT-003",
+    "channel": "mobile",
+    "risk_level": "LOW",
+    "signal": "Canal móvil con monitoreo reforzado",
+    "summary": "El canal móvil presenta monitoreo reforzado para operaciones de alto monto.",
+    "url": "https://example.com/mobile-channel-risk-monitoring",
+    "source_type": "governed_mock_source"
+  }
+]
