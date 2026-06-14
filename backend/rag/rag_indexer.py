@@ -196,3 +196,47 @@ def _build_content(policy_id: str, rule: str, version: str, suggested_action: Op
         f"Esta politica se usa como evidencia interna recuperada por RAG, para agentes posteriores. NO REPRESENTA la decision final."
     )
 
+def _save_chunks(chunks: List[Dict[str, Any]]) -> None:
+    POLICY_CHUNKS_JSON.write_text(
+        json.dumps(chunks, ensure_ascii=False, indent=2),
+        encoding="utf-8"
+    )
+
+def _save_embeddings(embeddings: np.ndarray) -> None:
+    np.save(POLICY_EMBEDDINGS_NPY, embeddings)
+
+def _save_embeddings_config(chunks_count: int, embeddings_dimension: int) -> None:
+    config = {
+        "embedding_provider": EMBEDDING_PROVIDER,
+        "embedding_model": EMBEDDING_MODEL,
+        "embedding_dimesions": EMBEDDING_DIMENSIONS,
+        "source_file": str(FRAUD_POLICY_DIR),
+        "chunks_file": str(POLICY_CHUNKS_JSON),
+        "embeddgins_file": str(POLICY_EMBEDDINGS_NPY),
+        "chunks_count": chunks_count,
+        "embedding_dimension": embeddings_dimension,
+        "created_at": datetime.utcnow().isoformat + "Z"
+    }
+
+    EMBEDDING_CONFIG_JSON.write_text(
+        json.dumps(config, ensure_ascii=False, indent=2),
+        encoding="utf-8"
+    )
+
+if __name__ == "__main__":
+    
+    indexed_chunks = build_policy_index()
+
+    print(f"Policy chunks indexed: {len(indexed_chunks)}")
+
+    for chunk in indexed_chunks:
+        print(
+            f"- {chunk['policy_id']} | "
+            f"{chunk['chunk_id']} | "
+            f"{chunk['suggested_action']} | "
+            f"{chunk['required_signals']}"
+        )
+
+    print(f"\nChunks file: {POLICY_CHUNKS_JSON}")
+    print(f"Embeddings file: {POLICY_EMBEDDINGS_NPY}")
+    print(f"Config file: {EMBEDDING_CONFIG_JSON}")
