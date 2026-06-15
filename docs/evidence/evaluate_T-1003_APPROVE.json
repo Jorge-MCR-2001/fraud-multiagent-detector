@@ -1,0 +1,544 @@
+﻿{
+    "transaction_id":  "T-1003",
+    "decision":  "APPROVE",
+    "confidence":  0.95,
+    "decision_basis":  {
+                           "basis_type":  "no_risk_signals",
+                           "decision":  "APPROVE",
+                           "confidence":  0.95,
+                           "requires_human_review":  false,
+                           "internal_signals":  {
+                                                    "signal_count":  0,
+                                                    "signal_tags":  [
+
+                                                                    ],
+                                                    "signals":  [
+
+                                                                ]
+                                                },
+                           "internal_policy_evidence":  {
+                                                            "rag_policy_ids":  [
+                                                                                   "FP-02",
+                                                                                   "FP-01"
+                                                                               ],
+                                                            "citations_internal":  [
+                                                                                       {
+                                                                                           "policy_id":  "FP-02",
+                                                                                           "chunk_id":  "policy-fp02-001",
+                                                                                           "version":  "2025.1"
+                                                                                       },
+                                                                                       {
+                                                                                           "policy_id":  "FP-01",
+                                                                                           "chunk_id":  "policy-fp01-001",
+                                                                                           "version":  "2025.1"
+                                                                                       }
+                                                                                   ]
+                                                        },
+                           "external_threat_evidence":  {
+                                                            "has_external_evidence":  false,
+                                                            "external_signals":  [
+
+                                                                                 ],
+                                                            "citations_external":  [
+
+                                                                                   ]
+                                                        },
+                           "debate_summary":  {
+                                                  "pro_fraud_score":  0.15,
+                                                  "pro_fraud_suggestion":  "APPROVE",
+                                                  "customer_trust_score":  0.9,
+                                                  "pro_customer_suggestion":  "APPROVE",
+                                                  "contradiction_detected":  false
+                                              },
+                           "applied_rule":  {
+                                                "rule_code":  "no_risk_signals",
+                                                "rule_description":  "No se identificaron seÃ±ales internas de riesgo ni evidencia externa relevante."
+                                            }
+                       },
+    "decision_rationale":  "DecisiÃ³n final: APPROVE. Criterio aplicado: no_risk_signals. PolÃ­ticas recuperadas por RAG: FP-02, FP-01. Score Pro-Fraud: 0.15. Score Pro-Customer: 0.9.",
+    "requires_human_review":  false,
+    "signals":  [
+
+                ],
+    "signal_tags":  [
+
+                    ],
+    "signal_metrics":  {
+
+                       },
+    "citations_internal":  [
+                               {
+                                   "policy_id":  "FP-02",
+                                   "chunk_id":  "policy-fp02-001",
+                                   "version":  "2025.1"
+                               },
+                               {
+                                   "policy_id":  "FP-01",
+                                   "chunk_id":  "policy-fp01-001",
+                                   "version":  "2025.1"
+                               }
+                           ],
+    "citations_external":  [
+
+                           ],
+    "evidence_bundle":  {
+                            "transaction_id":  "T-1003",
+                            "transaction_context":  {
+                                                        "transaction_id":  "T-1003",
+                                                        "customer_id":  "CU-001",
+                                                        "amount":  450,
+                                                        "currency":  "PEN",
+                                                        "country":  "PE",
+                                                        "channel":  "web",
+                                                        "device_id":  "D-01",
+                                                        "timestamp":  "2025-12-17T10:00:00",
+                                                        "transaction_hour":  10,
+                                                        "merchant_id":  "M-003"
+                                                    },
+                            "customer_behavior":  {
+                                                      "customer_id":  "CU-001",
+                                                      "usual_amount_avg":  500,
+                                                      "usual_hours":  "08-20",
+                                                      "usual_countries":  "PE",
+                                                      "usual_devices":  "D-01"
+                                                  },
+                            "internal_evidence":  {
+                                                      "signal_tags":  [
+
+                                                                      ],
+                                                      "signals":  [
+
+                                                                  ],
+                                                      "signal_metrics":  {
+                                                                             "transaction_amount":  450.0,
+                                                                             "usual_amount_avg":  500.0,
+                                                                             "amount_ratio":  0.9,
+                                                                             "transaction_hour":  10,
+                                                                             "usual_hours":  "08-20",
+                                                                             "usual_start_hour":  8,
+                                                                             "usual_end_hour":  20,
+                                                                             "transaction_country":  "PE",
+                                                                             "usual_countries":  [
+                                                                                                     "PE"
+                                                                                                 ],
+                                                                             "transaction_device":  "D-01",
+                                                                             "usual_devices":  [
+                                                                                                   "D-01"
+                                                                                               ]
+                                                                         },
+                                                      "signals_count":  0
+                                                  },
+                            "rag_evidence":  {
+                                                 "rag_policy_context":  [
+                                                                            {
+                                                                                "policy_id":  "FP-02",
+                                                                                "chunk_id":  "policy-fp02-001",
+                                                                                "version":  "2025.1",
+                                                                                "content":  "Politica interna: FP-02, Version: 2025.1,  Regla oficial: TransacciÃ³n internacional y dispositivo nuevo -\u003e ESCALATE_TO_HUMAN, Accion sugerida explicita en la regla: ESCALATE_TO_HUMAN, SeÃ±ales internas asociadas: signal_c, signal_d, Esta politica se usa como evidencia interna recuperada por RAG, para agentes posteriores. NO REPRESENTA la decision final.",
+                                                                                "suggested_action":  "ESCALATE_TO_HUMAN",
+                                                                                "required_signals":  [
+                                                                                                         "signal_c",
+                                                                                                         "signal_d"
+                                                                                                     ],
+                                                                                "retrieval_score":  0.4783,
+                                                                                "hybrid_score":  0.4783
+                                                                            },
+                                                                            {
+                                                                                "policy_id":  "FP-01",
+                                                                                "chunk_id":  "policy-fp01-001",
+                                                                                "version":  "2025.1",
+                                                                                "content":  "Politica interna: FP-01, Version: 2025.1,  Regla oficial: Monto \u003e 3x promedio habitual y horario fuera de rango -\u003e CHALLENGE, Accion sugerida explicita en la regla: CHALLENGE, SeÃ±ales internas asociadas: signal_a, signal_b, Esta politica se usa como evidencia interna recuperada por RAG, para agentes posteriores. NO REPRESENTA la decision final.",
+                                                                                "suggested_action":  "CHALLENGE",
+                                                                                "required_signals":  [
+                                                                                                         "signal_a",
+                                                                                                         "signal_b"
+                                                                                                     ],
+                                                                                "retrieval_score":  0.3761,
+                                                                                "hybrid_score":  0.3761
+                                                                            }
+                                                                        ],
+                                                 "citations_internal":  [
+                                                                            {
+                                                                                "policy_id":  "FP-02",
+                                                                                "chunk_id":  "policy-fp02-001",
+                                                                                "version":  "2025.1"
+                                                                            },
+                                                                            {
+                                                                                "policy_id":  "FP-01",
+                                                                                "chunk_id":  "policy-fp01-001",
+                                                                                "version":  "2025.1"
+                                                                            }
+                                                                        ],
+                                                 "retrieved_policy_ids":  [
+                                                                              "FP-02",
+                                                                              "FP-01"
+                                                                          ],
+                                                 "required_signals_from_rag":  [
+                                                                                   "signal_c",
+                                                                                   "signal_d",
+                                                                                   "signal_a",
+                                                                                   "signal_b"
+                                                                               ],
+                                                 "internal_citations_count":  2
+                                             },
+                            "external_evidence":  {
+                                                      "external_signals":  [
+
+                                                                           ],
+                                                      "citations_external":  [
+
+                                                                             ],
+                                                      "external_threat_context":  [
+
+                                                                                  ],
+                                                      "external_signals_count":  0,
+                                                      "external_citations_count":  0
+                                                  },
+                            "risk_summary":  {
+                                                 "total_internal_signals":  0,
+                                                 "total_external_signals":  0,
+                                                 "total_internal_citations":  2,
+                                                 "total_external_citations":  0,
+                                                 "has_rag_evidence":  true,
+                                                 "has_external_evidence":  false,
+                                                 "has_fp01":  true,
+                                                 "has_fp02":  true
+                                             }
+                        },
+    "pro_fraud_argument":  {
+                               "position":  "SUSPECTED_FRAUD",
+                               "arguments":  [
+                                                 "El RAG interno recuperÃ³ polÃ­ticas asociadas al patrÃ³n de riesgo detectado: FP-02, FP-01."
+                                             ],
+                               "llm_argument":  "La detecciÃ³n interna ha identificado la presencia de polÃ­ticas FP-01 y FP-02 asociadas a patrones de riesgo especÃ­ficos, lo que indica un posible riesgo de fraude. Aunque no se han registrado seÃ±ales internas ni externas adicionales, la recuperaciÃ³n de estas polÃ­ticas sugiere que el caso merece una revisiÃ³n cuidadosa. Este hallazgo es relevante para la evaluaciÃ³n del riesgo y debe considerarse en el anÃ¡lisis global, sin que ello implique una decisiÃ³n definitiva en esta etapa.",
+                               "llm_used":  true,
+                               "llm_error":  null,
+                               "risk_score":  0.15,
+                               "suggested_decision":  "APPROVE",
+                               "supporting_signals":  [
+
+                                                      ],
+                               "supporting_policy_ids":  [
+                                                             "FP-02",
+                                                             "FP-01"
+                                                         ],
+                               "supporting_external_signals":  [
+
+                                                               ]
+                           },
+    "pro_customer_argument":  {
+                                  "position":  "POSSIBLY_LEGITIMATE",
+                                  "arguments":  [
+                                                    "El paÃ­s de la transacciÃ³n coincide con el paÃ­s habitual del cliente.",
+                                                    "El dispositivo utilizado coincide con un dispositivo habitual del cliente.",
+                                                    "La operaciÃ³n se realizÃ³ por el canal web, lo cual puede ser consistente con el comportamiento digital del cliente.",
+                                                    "No se detectÃ³ cambio geogrÃ¡fico inusual en la transacciÃ³n.",
+                                                    "No se detectÃ³ uso de dispositivo desconocido.",
+                                                    "No se encontraron alertas externas asociadas a la transacciÃ³n."
+                                                ],
+                                  "llm_argument":  "La transacciÃ³n presenta caracterÃ­sticas consistentes con el comportamiento habitual del cliente, ya que se realizÃ³ en el paÃ­s usual (PerÃº) y utilizando un dispositivo reconocido (D-01). AdemÃ¡s, el canal empleado fue web, alineado con el patrÃ³n digital del usuario. No se detectaron cambios geogrÃ¡ficos ni uso de dispositivos desconocidos, ni alertas externas asociadas. Estos factores respaldan la posibilidad de que la operaciÃ³n sea legÃ­tima, reflejando un alto nivel de confianza en el cliente segÃºn el score asignado (0.9).",
+                                  "llm_used":  true,
+                                  "llm_error":  null,
+                                  "customer_trust_score":  0.9,
+                                  "suggested_decision":  "APPROVE",
+                                  "countered_signals":  [
+
+                                                        ],
+                                  "known_customer_attributes":  {
+                                                                    "country_is_usual":  true,
+                                                                    "device_is_usual":  true,
+                                                                    "channel":  "web"
+                                                                }
+                              },
+    "explanation_customer":  "La transacciÃ³n fue aprobada porque no se identificaron seÃ±ales relevantes de riesgo frente al comportamiento habitual del cliente.",
+    "explanation_audit":  "DecisiÃ³n final: APPROVE. Confianza: 0.95. Criterio aplicado: {\u0027basis_type\u0027: \u0027no_risk_signals\u0027, \u0027decision\u0027: \u0027APPROVE\u0027, \u0027confidence\u0027: 0.95, \u0027requires_human_review\u0027: False, \u0027internal_signals\u0027: {\u0027signal_count\u0027: 0, \u0027signal_tags\u0027: [], \u0027signals\u0027: []}, \u0027internal_policy_evidence\u0027: {\u0027rag_policy_ids\u0027: [\u0027FP-02\u0027, \u0027FP-01\u0027], \u0027citations_internal\u0027: [{\u0027policy_id\u0027: \u0027FP-02\u0027, \u0027chunk_id\u0027: \u0027policy-fp02-001\u0027, \u0027version\u0027: \u00272025.1\u0027}, {\u0027policy_id\u0027: \u0027FP-01\u0027, \u0027chunk_id\u0027: \u0027policy-fp01-001\u0027, \u0027version\u0027: \u00272025.1\u0027}]}, \u0027external_threat_evidence\u0027: {\u0027has_external_evidence\u0027: False, \u0027external_signals\u0027: [], \u0027citations_external\u0027: []}, \u0027debate_summary\u0027: {\u0027pro_fraud_score\u0027: 0.15, \u0027pro_fraud_suggestion\u0027: \u0027APPROVE\u0027, \u0027customer_trust_score\u0027: 0.9, \u0027pro_customer_suggestion\u0027: \u0027APPROVE\u0027, \u0027contradiction_detected\u0027: False}, \u0027applied_rule\u0027: {\u0027rule_code\u0027: \u0027no_risk_signals\u0027, \u0027rule_description\u0027: \u0027No se identificaron seÃ±ales internas de riesgo ni evidencia externa relevante.\u0027}}. PolÃ­ticas recuperadas por RAG: FP-02, FP-01. Citas internas utilizadas: FP-02/policy-fp02-001, FP-01/policy-fp01-001. Argumento Pro-Fraud: score 0.15, sugerencia APPROVE. Argumento Pro-Customer: score 0.9, sugerencia APPROVE. Ruta de agentes: TransactionContextAgent â BehavioralPatternAgent â InternalPolicyRAGAgent â ExternalThreatIntelAgent â EvidenceAggregationAgent â ProFraudDebateAgent â ProCustomerDebateAgent â DecisionArbiterAgent.",
+    "hitl_required":  false,
+    "hitl_reason":  "No requiere revisiÃ³n humana.",
+    "hitl_queue_item":  null,
+    "audit_saved":  true,
+    "audit_event_id":  "AUDIT-T-1003-2026-06-15T10:09:03.511434+00:00",
+    "confidence_level":  "HIGH",
+    "confidence_factors":  [
+                               {
+                                   "factor":  "no_internal_risk_signals",
+                                   "impact":  0.15,
+                                   "direction":  "increase_approval_confidence",
+                                   "description":  "No se detectaron seÃ±ales internas relevantes de riesgo.",
+                                   "evidence":  {
+                                                    "signal_tags":  [
+
+                                                                    ],
+                                                    "signals":  [
+
+                                                                ]
+                                                }
+                               },
+                               {
+                                   "factor":  "internal_policy_rag_match",
+                                   "impact":  0.15,
+                                   "direction":  "increase_policy_grounding",
+                                   "description":  "El RAG interno recuperÃ³ polÃ­ticas aplicables como evidencia.",
+                                   "evidence":  {
+                                                    "rag_policy_ids":  [
+                                                                           "FP-02",
+                                                                           "FP-01"
+                                                                       ],
+                                                    "citations_internal":  [
+                                                                               {
+                                                                                   "policy_id":  "FP-02",
+                                                                                   "chunk_id":  "policy-fp02-001",
+                                                                                   "version":  "2025.1"
+                                                                               },
+                                                                               {
+                                                                                   "policy_id":  "FP-01",
+                                                                                   "chunk_id":  "policy-fp01-001",
+                                                                                   "version":  "2025.1"
+                                                                               }
+                                                                           ]
+                                                }
+                               },
+                               {
+                                   "factor":  "pro_fraud_debate_score",
+                                   "impact":  0.15,
+                                   "direction":  "fraud_argument_strength",
+                                   "description":  "Score generado por el agente Pro-Fraud como fuerza argumentativa de riesgo.",
+                                   "evidence":  {
+                                                    "pro_fraud_score":  0.15
+                                                }
+                               },
+                               {
+                                   "factor":  "pro_customer_trust_score",
+                                   "impact":  0.9,
+                                   "direction":  "customer_legitimacy_strength",
+                                   "description":  "Score generado por el agente Pro-Customer como fuerza argumentativa de legitimidad.",
+                                   "evidence":  {
+                                                    "customer_trust_score":  0.9
+                                                }
+                               },
+                               {
+                                   "factor":  "applied_decision_rule",
+                                   "impact":  0.2,
+                                   "direction":  "rule_based_confidence_anchor",
+                                   "description":  "La confianza se ancla en la regla aplicada por el DecisionArbiterAgent.",
+                                   "evidence":  {
+                                                    "decision":  "APPROVE",
+                                                    "basis":  "no_risk_signals",
+                                                    "confidence":  0.95
+                                                }
+                               }
+                           ],
+    "agent_trace":  [
+                        {
+                            "agent":  "TransactionContextAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "transaction_id":  "T-1003",
+                                            "customer_id":  "CU-001",
+                                            "transaction_hour":  10
+                                        },
+                            "timestamp":  "2026-06-15T10:08:55.554400+00:00"
+                        },
+                        {
+                            "agent":  "BehavioralPatternAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "signal_tags":  [
+
+                                                            ],
+                                            "signals_count":  0
+                                        },
+                            "timestamp":  "2026-06-15T10:08:55.554400+00:00"
+                        },
+                        {
+                            "agent":  "InternalPolicyRAGAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "retrieved_policies":  [
+                                                                       "FP-02",
+                                                                       "FP-01"
+                                                                   ],
+                                            "citations_internal_count":  2
+                                        },
+                            "timestamp":  "2026-06-15T10:08:57.978144+00:00"
+                        },
+                        {
+                            "agent":  "ExternalThreatIntelAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "external_signals":  [
+
+                                                                 ],
+                                            "citations_external_count":  0
+                                        },
+                            "timestamp":  "2026-06-15T10:08:57.980149+00:00"
+                        },
+                        {
+                            "agent":  "EvidenceAggregationAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "internal_signals_count":  0,
+                                            "external_signals_count":  0,
+                                            "rag_policies":  [
+                                                                 "FP-02",
+                                                                 "FP-01"
+                                                             ]
+                                        },
+                            "timestamp":  "2026-06-15T10:08:57.982155+00:00"
+                        },
+                        {
+                            "agent":  "ProFraudDebateAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "position":  "SUSPECTED_FRAUD",
+                                            "risk_score":  0.15,
+                                            "arguments_count":  1,
+                                            "suggested_decision":  "APPROVE",
+                                            "llm_used":  true,
+                                            "llm_error":  null
+                                        },
+                            "timestamp":  "2026-06-15T10:09:00.875549+00:00"
+                        },
+                        {
+                            "agent":  "ProCustomerDebateAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "position":  "POSSIBLY_LEGITIMATE",
+                                            "customer_trust_score":  0.9,
+                                            "arguments_count":  6,
+                                            "suggested_decision":  "APPROVE",
+                                            "llm_used":  true,
+                                            "llm_error":  null
+                                        },
+                            "timestamp":  "2026-06-15T10:09:03.505598+00:00"
+                        },
+                        {
+                            "agent":  "DecisionArbiterAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "decision":  "APPROVE",
+                                            "confidence":  0.95,
+                                            "confidence_level":  "HIGH",
+                                            "confidence_factors_count":  5,
+                                            "requires_human_review":  false,
+                                            "basis_type":  "no_risk_signals",
+                                            "applied_rule":  {
+                                                                 "rule_code":  "no_risk_signals",
+                                                                 "rule_description":  "No se identificaron seÃ±ales internas de riesgo ni evidencia externa relevante."
+                                                             }
+                                        },
+                            "timestamp":  "2026-06-15T10:09:03.505598+00:00"
+                        },
+                        {
+                            "agent":  "ExplainabilityAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "generated_customer_explanation":  true,
+                                            "generated_audit_explanation":  true
+                                        },
+                            "timestamp":  "2026-06-15T10:09:03.511434+00:00"
+                        },
+                        {
+                            "agent":  "HITLRouterAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "hitl_required":  false,
+                                            "hitl_reason":  "No requiere revisiÃ³n humana.",
+                                            "hitl_queue_id":  null,
+                                            "priority":  null,
+                                            "basis_type":  "no_risk_signals"
+                                        },
+                            "timestamp":  "2026-06-15T10:09:03.511434+00:00"
+                        },
+                        {
+                            "agent":  "AuditTrailAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "audit_saved":  true,
+                                            "audit_event_id":  "AUDIT-T-1003-2026-06-15T10:09:03.511434+00:00",
+                                            "audit_file":  "C:\\Users\\JCristobal\\Desktop\\Jorge-GlexcoRobotics\\Jorge_Cristobal\\credicorp-ai-engineer\\credicorp_ws\\multi-agent-fraud-detection-1.0.0\\backend\\data\\audit\\audit_trail.jsonl"
+                                        },
+                            "timestamp":  "2026-06-15T10:09:03.511434+00:00"
+                        }
+                    ],
+    "decision_trace":  [
+                           {
+                               "step":  "signals_detected",
+                               "value":  {
+                                             "signal_tags":  [
+
+                                                             ],
+                                             "signals":  [
+
+                                                         ]
+                                         }
+                           },
+                           {
+                               "step":  "internal_rag_evidence",
+                               "value":  {
+                                             "rag_policy_ids":  [
+                                                                    "FP-02",
+                                                                    "FP-01"
+                                                                ],
+                                             "citations_internal":  [
+                                                                        {
+                                                                            "policy_id":  "FP-02",
+                                                                            "chunk_id":  "policy-fp02-001",
+                                                                            "version":  "2025.1"
+                                                                        },
+                                                                        {
+                                                                            "policy_id":  "FP-01",
+                                                                            "chunk_id":  "policy-fp01-001",
+                                                                            "version":  "2025.1"
+                                                                        }
+                                                                    ]
+                                         }
+                           },
+                           {
+                               "step":  "external_threat_evidence",
+                               "value":  {
+                                             "external_signals":  [
+
+                                                                  ],
+                                             "citations_external":  [
+
+                                                                    ]
+                                         }
+                           },
+                           {
+                               "step":  "debate_arguments",
+                               "value":  {
+                                             "pro_fraud":  {
+                                                               "risk_score":  0.15,
+                                                               "suggested_decision":  "APPROVE"
+                                                           },
+                                             "pro_customer":  {
+                                                                  "customer_trust_score":  0.9,
+                                                                  "suggested_decision":  "APPROVE"
+                                                              }
+                                         }
+                           },
+                           {
+                               "step":  "contradiction_detected",
+                               "value":  false
+                           },
+                           {
+                               "step":  "decision_basis",
+                               "value":  "no_risk_signals"
+                           },
+                           {
+                               "step":  "final_decision",
+                               "value":  "APPROVE"
+                           },
+                           {
+                               "step":  "final_confidence",
+                               "value":  0.95
+                           },
+                           {
+                               "step":  "requires_human_review",
+                               "value":  false
+                           }
+                       ],
+    "errors":  [
+
+               ]
+}

@@ -1,0 +1,1041 @@
+﻿{
+    "transaction_id":  "T-1005",
+    "decision":  "ESCALATE_TO_HUMAN",
+    "confidence":  0.6,
+    "decision_basis":  {
+                           "basis_type":  "policy_fp02_or_geo_device_risk",
+                           "decision":  "ESCALATE_TO_HUMAN",
+                           "confidence":  0.6,
+                           "requires_human_review":  true,
+                           "internal_signals":  {
+                                                    "signal_count":  3,
+                                                    "signal_tags":  [
+                                                                        "signal_b",
+                                                                        "signal_c",
+                                                                        "signal_d"
+                                                                    ],
+                                                    "signals":  [
+                                                                    "Horario no habitual",
+                                                                    "PaÃ­s inusual",
+                                                                    "Dispositivo desconocido"
+                                                                ]
+                                                },
+                           "internal_policy_evidence":  {
+                                                            "rag_policy_ids":  [
+                                                                                   "FP-02",
+                                                                                   "FP-01"
+                                                                               ],
+                                                            "citations_internal":  [
+                                                                                       {
+                                                                                           "policy_id":  "FP-02",
+                                                                                           "chunk_id":  "policy-fp02-001",
+                                                                                           "version":  "2025.1"
+                                                                                       },
+                                                                                       {
+                                                                                           "policy_id":  "FP-01",
+                                                                                           "chunk_id":  "policy-fp01-001",
+                                                                                           "version":  "2025.1"
+                                                                                       }
+                                                                                   ]
+                                                        },
+                           "external_threat_evidence":  {
+                                                            "has_external_evidence":  true,
+                                                            "external_signals":  [
+                                                                                     "PaÃ­s con alerta transaccional reciente",
+                                                                                     "Canal mÃ³vil con monitoreo reforzado"
+                                                                                 ],
+                                                            "citations_external":  [
+                                                                                       {
+                                                                                           "threat_id":  "EXT-002",
+                                                                                           "url":  "https://example.com/cross-border-fraud-alert-us",
+                                                                                           "summary":  "Se detectaron reportes recientes de fraude en transacciones transfronterizas hacia este paÃ­s.",
+                                                                                           "risk_level":  "HIGH",
+                                                                                           "source_type":  "governed_mock_source"
+                                                                                       },
+                                                                                       {
+                                                                                           "threat_id":  "EXT-003",
+                                                                                           "url":  "https://example.com/mobile-channel-risk-monitoring",
+                                                                                           "summary":  "El canal mÃ³vil presenta monitoreo reforzado para operaciones de alto monto.",
+                                                                                           "risk_level":  "LOW",
+                                                                                           "source_type":  "governed_mock_source"
+                                                                                       }
+                                                                                   ]
+                                                        },
+                           "debate_summary":  {
+                                                  "pro_fraud_score":  0.94,
+                                                  "pro_fraud_suggestion":  "ESCALATE_TO_HUMAN",
+                                                  "customer_trust_score":  0.0,
+                                                  "pro_customer_suggestion":  "ESCALATE_TO_HUMAN",
+                                                  "contradiction_detected":  false
+                                              },
+                           "applied_rule":  {
+                                                "rule_code":  "policy_fp02_or_geo_device_risk",
+                                                "rule_description":  "Se recuperÃ³ FP-02 o se detectÃ³ combinaciÃ³n de paÃ­s/dispositivo nuevo que requiere revisiÃ³n humana."
+                                            }
+                       },
+    "decision_rationale":  "DecisiÃ³n final: ESCALATE_TO_HUMAN. Criterio aplicado: policy_fp02_or_geo_device_risk. SeÃ±ales internas detectadas: Horario no habitual, PaÃ­s inusual, Dispositivo desconocido. PolÃ­ticas recuperadas por RAG: FP-02, FP-01. SeÃ±ales externas consideradas: PaÃ­s con alerta transaccional reciente, Canal mÃ³vil con monitoreo reforzado. Score Pro-Fraud: 0.94. Score Pro-Customer: 0.0.",
+    "requires_human_review":  true,
+    "signals":  [
+                    "Horario no habitual",
+                    "PaÃ­s inusual",
+                    "Dispositivo desconocido"
+                ],
+    "signal_tags":  [
+                        "signal_b",
+                        "signal_c",
+                        "signal_d"
+                    ],
+    "signal_metrics":  {
+
+                       },
+    "citations_internal":  [
+                               {
+                                   "policy_id":  "FP-02",
+                                   "chunk_id":  "policy-fp02-001",
+                                   "version":  "2025.1"
+                               },
+                               {
+                                   "policy_id":  "FP-01",
+                                   "chunk_id":  "policy-fp01-001",
+                                   "version":  "2025.1"
+                               }
+                           ],
+    "citations_external":  [
+                               {
+                                   "threat_id":  "EXT-002",
+                                   "source_id":  null,
+                                   "source_type":  "governed_mock_source",
+                                   "url":  "https://example.com/cross-border-fraud-alert-us",
+                                   "title":  null,
+                                   "summary":  "Se detectaron reportes recientes de fraude en transacciones transfronterizas hacia este paÃ­s.",
+                                   "risk_level":  "HIGH",
+                                   "matched_field":  null,
+                                   "matched_value":  null
+                               },
+                               {
+                                   "threat_id":  "EXT-003",
+                                   "source_id":  null,
+                                   "source_type":  "governed_mock_source",
+                                   "url":  "https://example.com/mobile-channel-risk-monitoring",
+                                   "title":  null,
+                                   "summary":  "El canal mÃ³vil presenta monitoreo reforzado para operaciones de alto monto.",
+                                   "risk_level":  "LOW",
+                                   "matched_field":  null,
+                                   "matched_value":  null
+                               }
+                           ],
+    "evidence_bundle":  {
+                            "transaction_id":  "T-1005",
+                            "transaction_context":  {
+                                                        "transaction_id":  "T-1005",
+                                                        "customer_id":  "CU-001",
+                                                        "amount":  1500,
+                                                        "currency":  "USD",
+                                                        "country":  "US",
+                                                        "channel":  "mobile",
+                                                        "device_id":  "D-99",
+                                                        "timestamp":  "2025-12-17T02:00:00",
+                                                        "transaction_hour":  2,
+                                                        "merchant_id":  "M-999"
+                                                    },
+                            "customer_behavior":  {
+                                                      "customer_id":  "CU-001",
+                                                      "usual_amount_avg":  500,
+                                                      "usual_hours":  "08-20",
+                                                      "usual_countries":  "PE",
+                                                      "usual_devices":  "D-01"
+                                                  },
+                            "internal_evidence":  {
+                                                      "signal_tags":  [
+                                                                          "signal_b",
+                                                                          "signal_c",
+                                                                          "signal_d"
+                                                                      ],
+                                                      "signals":  [
+                                                                      "Horario no habitual",
+                                                                      "PaÃ­s inusual",
+                                                                      "Dispositivo desconocido"
+                                                                  ],
+                                                      "signal_metrics":  {
+                                                                             "transaction_amount":  1500.0,
+                                                                             "usual_amount_avg":  500.0,
+                                                                             "amount_ratio":  3.0,
+                                                                             "transaction_hour":  2,
+                                                                             "usual_hours":  "08-20",
+                                                                             "usual_start_hour":  8,
+                                                                             "usual_end_hour":  20,
+                                                                             "transaction_country":  "US",
+                                                                             "usual_countries":  [
+                                                                                                     "PE"
+                                                                                                 ],
+                                                                             "transaction_device":  "D-99",
+                                                                             "usual_devices":  [
+                                                                                                   "D-01"
+                                                                                               ]
+                                                                         },
+                                                      "signals_count":  3
+                                                  },
+                            "rag_evidence":  {
+                                                 "rag_policy_context":  [
+                                                                            {
+                                                                                "policy_id":  "FP-02",
+                                                                                "chunk_id":  "policy-fp02-001",
+                                                                                "version":  "2025.1",
+                                                                                "content":  "Politica interna: FP-02, Version: 2025.1,  Regla oficial: TransacciÃ³n internacional y dispositivo nuevo -\u003e ESCALATE_TO_HUMAN, Accion sugerida explicita en la regla: ESCALATE_TO_HUMAN, SeÃ±ales internas asociadas: signal_c, signal_d, Esta politica se usa como evidencia interna recuperada por RAG, para agentes posteriores. NO REPRESENTA la decision final.",
+                                                                                "suggested_action":  "ESCALATE_TO_HUMAN",
+                                                                                "required_signals":  [
+                                                                                                         "signal_c",
+                                                                                                         "signal_d"
+                                                                                                     ],
+                                                                                "retrieval_score":  0.5338,
+                                                                                "hybrid_score":  0.9338
+                                                                            },
+                                                                            {
+                                                                                "policy_id":  "FP-01",
+                                                                                "chunk_id":  "policy-fp01-001",
+                                                                                "version":  "2025.1",
+                                                                                "content":  "Politica interna: FP-01, Version: 2025.1,  Regla oficial: Monto \u003e 3x promedio habitual y horario fuera de rango -\u003e CHALLENGE, Accion sugerida explicita en la regla: CHALLENGE, SeÃ±ales internas asociadas: signal_a, signal_b, Esta politica se usa como evidencia interna recuperada por RAG, para agentes posteriores. NO REPRESENTA la decision final.",
+                                                                                "suggested_action":  "CHALLENGE",
+                                                                                "required_signals":  [
+                                                                                                         "signal_a",
+                                                                                                         "signal_b"
+                                                                                                     ],
+                                                                                "retrieval_score":  0.4978,
+                                                                                "hybrid_score":  0.5978
+                                                                            }
+                                                                        ],
+                                                 "citations_internal":  [
+                                                                            {
+                                                                                "policy_id":  "FP-02",
+                                                                                "chunk_id":  "policy-fp02-001",
+                                                                                "version":  "2025.1"
+                                                                            },
+                                                                            {
+                                                                                "policy_id":  "FP-01",
+                                                                                "chunk_id":  "policy-fp01-001",
+                                                                                "version":  "2025.1"
+                                                                            }
+                                                                        ],
+                                                 "retrieved_policy_ids":  [
+                                                                              "FP-02",
+                                                                              "FP-01"
+                                                                          ],
+                                                 "required_signals_from_rag":  [
+                                                                                   "signal_c",
+                                                                                   "signal_d",
+                                                                                   "signal_a",
+                                                                                   "signal_b"
+                                                                               ],
+                                                 "internal_citations_count":  2
+                                             },
+                            "external_evidence":  {
+                                                      "external_signals":  [
+                                                                               "PaÃ­s con alerta transaccional reciente",
+                                                                               "Canal mÃ³vil con monitoreo reforzado"
+                                                                           ],
+                                                      "citations_external":  [
+                                                                                 {
+                                                                                     "threat_id":  "EXT-002",
+                                                                                     "url":  "https://example.com/cross-border-fraud-alert-us",
+                                                                                     "summary":  "Se detectaron reportes recientes de fraude en transacciones transfronterizas hacia este paÃ­s.",
+                                                                                     "risk_level":  "HIGH",
+                                                                                     "source_type":  "governed_mock_source"
+                                                                                 },
+                                                                                 {
+                                                                                     "threat_id":  "EXT-003",
+                                                                                     "url":  "https://example.com/mobile-channel-risk-monitoring",
+                                                                                     "summary":  "El canal mÃ³vil presenta monitoreo reforzado para operaciones de alto monto.",
+                                                                                     "risk_level":  "LOW",
+                                                                                     "source_type":  "governed_mock_source"
+                                                                                 }
+                                                                             ],
+                                                      "external_threat_context":  [
+                                                                                      {
+                                                                                          "threat_id":  "EXT-002",
+                                                                                          "country":  "US",
+                                                                                          "risk_level":  "HIGH",
+                                                                                          "signal":  "PaÃ­s con alerta transaccional reciente",
+                                                                                          "summary":  "Se detectaron reportes recientes de fraude en transacciones transfronterizas hacia este paÃ­s.",
+                                                                                          "url":  "https://example.com/cross-border-fraud-alert-us",
+                                                                                          "source_type":  "governed_mock_source"
+                                                                                      },
+                                                                                      {
+                                                                                          "threat_id":  "EXT-003",
+                                                                                          "channel":  "mobile",
+                                                                                          "risk_level":  "LOW",
+                                                                                          "signal":  "Canal mÃ³vil con monitoreo reforzado",
+                                                                                          "summary":  "El canal mÃ³vil presenta monitoreo reforzado para operaciones de alto monto.",
+                                                                                          "url":  "https://example.com/mobile-channel-risk-monitoring",
+                                                                                          "source_type":  "governed_mock_source"
+                                                                                      }
+                                                                                  ],
+                                                      "external_signals_count":  2,
+                                                      "external_citations_count":  2
+                                                  },
+                            "risk_summary":  {
+                                                 "total_internal_signals":  3,
+                                                 "total_external_signals":  2,
+                                                 "total_internal_citations":  2,
+                                                 "total_external_citations":  2,
+                                                 "has_rag_evidence":  true,
+                                                 "has_external_evidence":  true,
+                                                 "has_fp01":  true,
+                                                 "has_fp02":  true
+                                             }
+                        },
+    "pro_fraud_argument":  {
+                               "position":  "SUSPECTED_FRAUD",
+                               "arguments":  [
+                                                 "La transacciÃ³n ocurriÃ³ fuera del horario habitual de operaciÃ³n del cliente.",
+                                                 "La transacciÃ³n se realizÃ³ desde un paÃ­s no habitual para el cliente.",
+                                                 "La transacciÃ³n utilizÃ³ un dispositivo no reconocido o no habitual.",
+                                                 "El RAG interno recuperÃ³ polÃ­ticas asociadas al patrÃ³n de riesgo detectado: FP-02, FP-01.",
+                                                 "Se encontraron seÃ±ales externas relacionadas: PaÃ­s con alerta transaccional reciente, Canal mÃ³vil con monitoreo reforzado.",
+                                                 "Existen citas externas asociadas a fuentes gobernadas de inteligencia de amenazas."
+                                             ],
+                               "llm_argument":  "La transacciÃ³n presenta mÃºltiples indicadores de riesgo que justifican una revisiÃ³n detallada: se efectuÃ³ fuera del horario habitual del cliente, desde un paÃ­s no habitual y utilizando un dispositivo desconocido. AdemÃ¡s, se activaron polÃ­ticas internas FP-01 y FP-02 asociadas a patrones de fraude, y existen seÃ±ales externas relevantes, como alertas transaccionales recientes en el paÃ­s y monitoreo reforzado del canal mÃ³vil. Estas evidencias internas y externas, junto con citas de inteligencia de amenazas, sustentan la necesidad de escalar el caso para anÃ¡lisis humano.",
+                               "llm_used":  true,
+                               "llm_error":  null,
+                               "risk_score":  0.94,
+                               "suggested_decision":  "ESCALATE_TO_HUMAN",
+                               "supporting_signals":  [
+                                                          "Horario no habitual",
+                                                          "PaÃ­s inusual",
+                                                          "Dispositivo desconocido"
+                                                      ],
+                               "supporting_policy_ids":  [
+                                                             "FP-02",
+                                                             "FP-01"
+                                                         ],
+                               "supporting_external_signals":  [
+                                                                   "PaÃ­s con alerta transaccional reciente",
+                                                                   "Canal mÃ³vil con monitoreo reforzado"
+                                                               ]
+                           },
+    "pro_customer_argument":  {
+                                  "position":  "POSSIBLY_LEGITIMATE",
+                                  "arguments":  [
+                                                    "La operaciÃ³n se realizÃ³ por el canal mobile, lo cual puede ser consistente con el comportamiento digital del cliente."
+                                                ],
+                                  "llm_argument":  "Aunque la transacciÃ³n presenta seÃ±ales de alerta como paÃ­s y dispositivo inusuales, asÃ­ como un horario atÃ­pico, el hecho de haberse realizado a travÃ©s del canal mÃ³vil puede ser coherente con el comportamiento digital habitual del cliente. Esta coincidencia sugiere que, pese a las anomalÃ­as detectadas, la operaciÃ³n podrÃ­a ser legÃ­tima, lo que justifica una revisiÃ³n mÃ¡s detallada por parte de un analista humano para confirmar su autenticidad.",
+                                  "llm_used":  true,
+                                  "llm_error":  null,
+                                  "customer_trust_score":  0.0,
+                                  "suggested_decision":  "ESCALATE_TO_HUMAN",
+                                  "countered_signals":  [
+                                                            "Horario no habitual",
+                                                            "PaÃ­s inusual",
+                                                            "Dispositivo desconocido"
+                                                        ],
+                                  "known_customer_attributes":  {
+                                                                    "country_is_usual":  false,
+                                                                    "device_is_usual":  false,
+                                                                    "channel":  "mobile"
+                                                                }
+                              },
+    "explanation_customer":  "La transacciÃ³n serÃ¡ revisada por un especialista debido a que presenta seÃ±ales que requieren una evaluaciÃ³n adicional.",
+    "explanation_audit":  "DecisiÃ³n final: ESCALATE_TO_HUMAN. Confianza: 0.6. Criterio aplicado: {\u0027basis_type\u0027: \u0027policy_fp02_or_geo_device_risk\u0027, \u0027decision\u0027: \u0027ESCALATE_TO_HUMAN\u0027, \u0027confidence\u0027: 0.6, \u0027requires_human_review\u0027: True, \u0027internal_signals\u0027: {\u0027signal_count\u0027: 3, \u0027signal_tags\u0027: [\u0027signal_b\u0027, \u0027signal_c\u0027, \u0027signal_d\u0027], \u0027signals\u0027: [\u0027Horario no habitual\u0027, \u0027PaÃ­s inusual\u0027, \u0027Dispositivo desconocido\u0027]}, \u0027internal_policy_evidence\u0027: {\u0027rag_policy_ids\u0027: [\u0027FP-02\u0027, \u0027FP-01\u0027], \u0027citations_internal\u0027: [{\u0027policy_id\u0027: \u0027FP-02\u0027, \u0027chunk_id\u0027: \u0027policy-fp02-001\u0027, \u0027version\u0027: \u00272025.1\u0027}, {\u0027policy_id\u0027: \u0027FP-01\u0027, \u0027chunk_id\u0027: \u0027policy-fp01-001\u0027, \u0027version\u0027: \u00272025.1\u0027}]}, \u0027external_threat_evidence\u0027: {\u0027has_external_evidence\u0027: True, \u0027external_signals\u0027: [\u0027PaÃ­s con alerta transaccional reciente\u0027, \u0027Canal mÃ³vil con monitoreo reforzado\u0027], \u0027citations_external\u0027: [{\u0027threat_id\u0027: \u0027EXT-002\u0027, \u0027url\u0027: \u0027https://example.com/cross-border-fraud-alert-us\u0027, \u0027summary\u0027: \u0027Se detectaron reportes recientes de fraude en transacciones transfronterizas hacia este paÃ­s.\u0027, \u0027risk_level\u0027: \u0027HIGH\u0027, \u0027source_type\u0027: \u0027governed_mock_source\u0027}, {\u0027threat_id\u0027: \u0027EXT-003\u0027, \u0027url\u0027: \u0027https://example.com/mobile-channel-risk-monitoring\u0027, \u0027summary\u0027: \u0027El canal mÃ³vil presenta monitoreo reforzado para operaciones de alto monto.\u0027, \u0027risk_level\u0027: \u0027LOW\u0027, \u0027source_type\u0027: \u0027governed_mock_source\u0027}]}, \u0027debate_summary\u0027: {\u0027pro_fraud_score\u0027: 0.94, \u0027pro_fraud_suggestion\u0027: \u0027ESCALATE_TO_HUMAN\u0027, \u0027customer_trust_score\u0027: 0.0, \u0027pro_customer_suggestion\u0027: \u0027ESCALATE_TO_HUMAN\u0027, \u0027contradiction_detected\u0027: False}, \u0027applied_rule\u0027: {\u0027rule_code\u0027: \u0027policy_fp02_or_geo_device_risk\u0027, \u0027rule_description\u0027: \u0027Se recuperÃ³ FP-02 o se detectÃ³ combinaciÃ³n de paÃ­s/dispositivo nuevo que requiere revisiÃ³n humana.\u0027}}. SeÃ±ales internas detectadas: Horario no habitual, PaÃ­s inusual, Dispositivo desconocido. Tags tÃ©cnicos asociados: signal_b, signal_c, signal_d. PolÃ­ticas recuperadas por RAG: FP-02, FP-01. Citas internas utilizadas: FP-02/policy-fp02-001, FP-01/policy-fp01-001. SeÃ±ales externas consideradas: PaÃ­s con alerta transaccional reciente, Canal mÃ³vil con monitoreo reforzado. Fuentes externas utilizadas: EXT-002, EXT-003. Argumento Pro-Fraud: score 0.94, sugerencia ESCALATE_TO_HUMAN. Argumento Pro-Customer: score 0.0, sugerencia ESCALATE_TO_HUMAN. Ruta de agentes: TransactionContextAgent â BehavioralPatternAgent â InternalPolicyRAGAgent â ExternalThreatIntelAgent â EvidenceAggregationAgent â ProFraudDebateAgent â ProCustomerDebateAgent â DecisionArbiterAgent.",
+    "hitl_required":  true,
+    "hitl_reason":  "El Ã¡rbitro marcÃ³ el caso como requerido para revisiÃ³n humana.",
+    "hitl_queue_item":  {
+                            "hitl_queue_id":  "HITL-T-1005-20260615T100923888161Z",
+                            "transaction_id":  "T-1005",
+                            "reason":  "El Ã¡rbitro marcÃ³ el caso como requerido para revisiÃ³n humana.",
+                            "priority":  "HIGH",
+                            "status":  "PENDING_REVIEW",
+                            "original_decision":  "ESCALATE_TO_HUMAN",
+                            "original_confidence":  0.6,
+                            "requires_human_review":  true,
+                            "decision_snapshot":  {
+                                                      "decision":  "ESCALATE_TO_HUMAN",
+                                                      "confidence":  0.6,
+                                                      "decision_basis":  {
+                                                                             "basis_type":  "policy_fp02_or_geo_device_risk",
+                                                                             "decision":  "ESCALATE_TO_HUMAN",
+                                                                             "confidence":  0.6,
+                                                                             "requires_human_review":  true,
+                                                                             "internal_signals":  {
+                                                                                                      "signal_count":  3,
+                                                                                                      "signal_tags":  [
+                                                                                                                          "signal_b",
+                                                                                                                          "signal_c",
+                                                                                                                          "signal_d"
+                                                                                                                      ],
+                                                                                                      "signals":  [
+                                                                                                                      "Horario no habitual",
+                                                                                                                      "PaÃ­s inusual",
+                                                                                                                      "Dispositivo desconocido"
+                                                                                                                  ]
+                                                                                                  },
+                                                                             "internal_policy_evidence":  {
+                                                                                                              "rag_policy_ids":  [
+                                                                                                                                     "FP-02",
+                                                                                                                                     "FP-01"
+                                                                                                                                 ],
+                                                                                                              "citations_internal":  [
+                                                                                                                                         {
+                                                                                                                                             "policy_id":  "FP-02",
+                                                                                                                                             "chunk_id":  "policy-fp02-001",
+                                                                                                                                             "version":  "2025.1"
+                                                                                                                                         },
+                                                                                                                                         {
+                                                                                                                                             "policy_id":  "FP-01",
+                                                                                                                                             "chunk_id":  "policy-fp01-001",
+                                                                                                                                             "version":  "2025.1"
+                                                                                                                                         }
+                                                                                                                                     ]
+                                                                                                          },
+                                                                             "external_threat_evidence":  {
+                                                                                                              "has_external_evidence":  true,
+                                                                                                              "external_signals":  [
+                                                                                                                                       "PaÃ­s con alerta transaccional reciente",
+                                                                                                                                       "Canal mÃ³vil con monitoreo reforzado"
+                                                                                                                                   ],
+                                                                                                              "citations_external":  [
+                                                                                                                                         {
+                                                                                                                                             "threat_id":  "EXT-002",
+                                                                                                                                             "url":  "https://example.com/cross-border-fraud-alert-us",
+                                                                                                                                             "summary":  "Se detectaron reportes recientes de fraude en transacciones transfronterizas hacia este paÃ­s.",
+                                                                                                                                             "risk_level":  "HIGH",
+                                                                                                                                             "source_type":  "governed_mock_source"
+                                                                                                                                         },
+                                                                                                                                         {
+                                                                                                                                             "threat_id":  "EXT-003",
+                                                                                                                                             "url":  "https://example.com/mobile-channel-risk-monitoring",
+                                                                                                                                             "summary":  "El canal mÃ³vil presenta monitoreo reforzado para operaciones de alto monto.",
+                                                                                                                                             "risk_level":  "LOW",
+                                                                                                                                             "source_type":  "governed_mock_source"
+                                                                                                                                         }
+                                                                                                                                     ]
+                                                                                                          },
+                                                                             "debate_summary":  {
+                                                                                                    "pro_fraud_score":  0.94,
+                                                                                                    "pro_fraud_suggestion":  "ESCALATE_TO_HUMAN",
+                                                                                                    "customer_trust_score":  0.0,
+                                                                                                    "pro_customer_suggestion":  "ESCALATE_TO_HUMAN",
+                                                                                                    "contradiction_detected":  false
+                                                                                                },
+                                                                             "applied_rule":  {
+                                                                                                  "rule_code":  "policy_fp02_or_geo_device_risk",
+                                                                                                  "rule_description":  "Se recuperÃ³ FP-02 o se detectÃ³ combinaciÃ³n de paÃ­s/dispositivo nuevo que requiere revisiÃ³n humana."
+                                                                                              }
+                                                                         },
+                                                      "decision_rationale":  "DecisiÃ³n final: ESCALATE_TO_HUMAN. Criterio aplicado: policy_fp02_or_geo_device_risk. SeÃ±ales internas detectadas: Horario no habitual, PaÃ­s inusual, Dispositivo desconocido. PolÃ­ticas recuperadas por RAG: FP-02, FP-01. SeÃ±ales externas consideradas: PaÃ­s con alerta transaccional reciente, Canal mÃ³vil con monitoreo reforzado. Score Pro-Fraud: 0.94. Score Pro-Customer: 0.0.",
+                                                      "citations_internal":  [
+                                                                                 {
+                                                                                     "policy_id":  "FP-02",
+                                                                                     "chunk_id":  "policy-fp02-001",
+                                                                                     "version":  "2025.1"
+                                                                                 },
+                                                                                 {
+                                                                                     "policy_id":  "FP-01",
+                                                                                     "chunk_id":  "policy-fp01-001",
+                                                                                     "version":  "2025.1"
+                                                                                 }
+                                                                             ],
+                                                      "citations_external":  [
+                                                                                 {
+                                                                                     "threat_id":  "EXT-002",
+                                                                                     "url":  "https://example.com/cross-border-fraud-alert-us",
+                                                                                     "summary":  "Se detectaron reportes recientes de fraude en transacciones transfronterizas hacia este paÃ­s.",
+                                                                                     "risk_level":  "HIGH",
+                                                                                     "source_type":  "governed_mock_source"
+                                                                                 },
+                                                                                 {
+                                                                                     "threat_id":  "EXT-003",
+                                                                                     "url":  "https://example.com/mobile-channel-risk-monitoring",
+                                                                                     "summary":  "El canal mÃ³vil presenta monitoreo reforzado para operaciones de alto monto.",
+                                                                                     "risk_level":  "LOW",
+                                                                                     "source_type":  "governed_mock_source"
+                                                                                 }
+                                                                             ],
+                                                      "agent_trace":  [
+                                                                          {
+                                                                              "agent":  "TransactionContextAgent",
+                                                                              "status":  "completed",
+                                                                              "details":  {
+                                                                                              "transaction_id":  "T-1005",
+                                                                                              "customer_id":  "CU-001",
+                                                                                              "transaction_hour":  2
+                                                                                          },
+                                                                              "timestamp":  "2026-06-15T10:09:16.427230+00:00"
+                                                                          },
+                                                                          {
+                                                                              "agent":  "BehavioralPatternAgent",
+                                                                              "status":  "completed",
+                                                                              "details":  {
+                                                                                              "signal_tags":  [
+                                                                                                                  "signal_b",
+                                                                                                                  "signal_c",
+                                                                                                                  "signal_d"
+                                                                                                              ],
+                                                                                              "signals_count":  3
+                                                                                          },
+                                                                              "timestamp":  "2026-06-15T10:09:16.427230+00:00"
+                                                                          },
+                                                                          {
+                                                                              "agent":  "InternalPolicyRAGAgent",
+                                                                              "status":  "completed",
+                                                                              "details":  {
+                                                                                              "retrieved_policies":  [
+                                                                                                                         "FP-02",
+                                                                                                                         "FP-01"
+                                                                                                                     ],
+                                                                                              "citations_internal_count":  2
+                                                                                          },
+                                                                              "timestamp":  "2026-06-15T10:09:17.436514+00:00"
+                                                                          },
+                                                                          {
+                                                                              "agent":  "ExternalThreatIntelAgent",
+                                                                              "status":  "completed",
+                                                                              "details":  {
+                                                                                              "external_signals":  [
+                                                                                                                       "PaÃ­s con alerta transaccional reciente",
+                                                                                                                       "Canal mÃ³vil con monitoreo reforzado"
+                                                                                                                   ],
+                                                                                              "citations_external_count":  2
+                                                                                          },
+                                                                              "timestamp":  "2026-06-15T10:09:17.440151+00:00"
+                                                                          },
+                                                                          {
+                                                                              "agent":  "EvidenceAggregationAgent",
+                                                                              "status":  "completed",
+                                                                              "details":  {
+                                                                                              "internal_signals_count":  3,
+                                                                                              "external_signals_count":  2,
+                                                                                              "rag_policies":  [
+                                                                                                                   "FP-02",
+                                                                                                                   "FP-01"
+                                                                                                               ]
+                                                                                          },
+                                                                              "timestamp":  "2026-06-15T10:09:17.440151+00:00"
+                                                                          },
+                                                                          {
+                                                                              "agent":  "ProFraudDebateAgent",
+                                                                              "status":  "completed",
+                                                                              "details":  {
+                                                                                              "position":  "SUSPECTED_FRAUD",
+                                                                                              "risk_score":  0.94,
+                                                                                              "arguments_count":  6,
+                                                                                              "suggested_decision":  "ESCALATE_TO_HUMAN",
+                                                                                              "llm_used":  true,
+                                                                                              "llm_error":  null
+                                                                                          },
+                                                                              "timestamp":  "2026-06-15T10:09:21.729541+00:00"
+                                                                          },
+                                                                          {
+                                                                              "agent":  "ProCustomerDebateAgent",
+                                                                              "status":  "completed",
+                                                                              "details":  {
+                                                                                              "position":  "POSSIBLY_LEGITIMATE",
+                                                                                              "customer_trust_score":  0.0,
+                                                                                              "arguments_count":  1,
+                                                                                              "suggested_decision":  "ESCALATE_TO_HUMAN",
+                                                                                              "llm_used":  true,
+                                                                                              "llm_error":  null
+                                                                                          },
+                                                                              "timestamp":  "2026-06-15T10:09:23.880844+00:00"
+                                                                          },
+                                                                          {
+                                                                              "agent":  "DecisionArbiterAgent",
+                                                                              "status":  "completed",
+                                                                              "details":  {
+                                                                                              "decision":  "ESCALATE_TO_HUMAN",
+                                                                                              "confidence":  0.6,
+                                                                                              "confidence_level":  "MEDIUM",
+                                                                                              "confidence_factors_count":  7,
+                                                                                              "requires_human_review":  true,
+                                                                                              "basis_type":  "policy_fp02_or_geo_device_risk",
+                                                                                              "applied_rule":  {
+                                                                                                                   "rule_code":  "policy_fp02_or_geo_device_risk",
+                                                                                                                   "rule_description":  "Se recuperÃ³ FP-02 o se detectÃ³ combinaciÃ³n de paÃ­s/dispositivo nuevo que requiere revisiÃ³n humana."
+                                                                                                               }
+                                                                                          },
+                                                                              "timestamp":  "2026-06-15T10:09:23.883186+00:00"
+                                                                          },
+                                                                          {
+                                                                              "agent":  "ExplainabilityAgent",
+                                                                              "status":  "completed",
+                                                                              "details":  {
+                                                                                              "generated_customer_explanation":  true,
+                                                                                              "generated_audit_explanation":  true
+                                                                                          },
+                                                                              "timestamp":  "2026-06-15T10:09:23.886110+00:00"
+                                                                          },
+                                                                          {
+                                                                              "agent":  "HITLRouterAgent",
+                                                                              "status":  "completed",
+                                                                              "details":  {
+                                                                                              "hitl_required":  true,
+                                                                                              "hitl_reason":  "El Ã¡rbitro marcÃ³ el caso como requerido para revisiÃ³n humana.",
+                                                                                              "hitl_queue_id":  "HITL-T-1005-20260615T100923888161Z",
+                                                                                              "priority":  "HIGH",
+                                                                                              "basis_type":  "policy_fp02_or_geo_device_risk"
+                                                                                          },
+                                                                              "timestamp":  "2026-06-15T10:09:23.888161+00:00"
+                                                                          },
+                                                                          {
+                                                                              "agent":  "AuditTrailAgent",
+                                                                              "status":  "completed",
+                                                                              "details":  {
+                                                                                              "audit_saved":  true,
+                                                                                              "audit_event_id":  "AUDIT-T-1005-2026-06-15T10:09:23.891208+00:00",
+                                                                                              "audit_file":  "C:\\Users\\JCristobal\\Desktop\\Jorge-GlexcoRobotics\\Jorge_Cristobal\\credicorp-ai-engineer\\credicorp_ws\\multi-agent-fraud-detection-1.0.0\\backend\\data\\audit\\audit_trail.jsonl"
+                                                                                          },
+                                                                              "timestamp":  "2026-06-15T10:09:23.891208+00:00"
+                                                                          }
+                                                                      ],
+                                                      "decision_trace":  [
+                                                                             {
+                                                                                 "step":  "signals_detected",
+                                                                                 "value":  {
+                                                                                               "signal_tags":  [
+                                                                                                                   "signal_b",
+                                                                                                                   "signal_c",
+                                                                                                                   "signal_d"
+                                                                                                               ],
+                                                                                               "signals":  [
+                                                                                                               "Horario no habitual",
+                                                                                                               "PaÃ­s inusual",
+                                                                                                               "Dispositivo desconocido"
+                                                                                                           ]
+                                                                                           }
+                                                                             },
+                                                                             {
+                                                                                 "step":  "internal_rag_evidence",
+                                                                                 "value":  {
+                                                                                               "rag_policy_ids":  [
+                                                                                                                      "FP-02",
+                                                                                                                      "FP-01"
+                                                                                                                  ],
+                                                                                               "citations_internal":  [
+                                                                                                                          {
+                                                                                                                              "policy_id":  "FP-02",
+                                                                                                                              "chunk_id":  "policy-fp02-001",
+                                                                                                                              "version":  "2025.1"
+                                                                                                                          },
+                                                                                                                          {
+                                                                                                                              "policy_id":  "FP-01",
+                                                                                                                              "chunk_id":  "policy-fp01-001",
+                                                                                                                              "version":  "2025.1"
+                                                                                                                          }
+                                                                                                                      ]
+                                                                                           }
+                                                                             },
+                                                                             {
+                                                                                 "step":  "external_threat_evidence",
+                                                                                 "value":  {
+                                                                                               "external_signals":  [
+                                                                                                                        "PaÃ­s con alerta transaccional reciente",
+                                                                                                                        "Canal mÃ³vil con monitoreo reforzado"
+                                                                                                                    ],
+                                                                                               "citations_external":  [
+                                                                                                                          {
+                                                                                                                              "threat_id":  "EXT-002",
+                                                                                                                              "url":  "https://example.com/cross-border-fraud-alert-us",
+                                                                                                                              "summary":  "Se detectaron reportes recientes de fraude en transacciones transfronterizas hacia este paÃ­s.",
+                                                                                                                              "risk_level":  "HIGH",
+                                                                                                                              "source_type":  "governed_mock_source"
+                                                                                                                          },
+                                                                                                                          {
+                                                                                                                              "threat_id":  "EXT-003",
+                                                                                                                              "url":  "https://example.com/mobile-channel-risk-monitoring",
+                                                                                                                              "summary":  "El canal mÃ³vil presenta monitoreo reforzado para operaciones de alto monto.",
+                                                                                                                              "risk_level":  "LOW",
+                                                                                                                              "source_type":  "governed_mock_source"
+                                                                                                                          }
+                                                                                                                      ]
+                                                                                           }
+                                                                             },
+                                                                             {
+                                                                                 "step":  "debate_arguments",
+                                                                                 "value":  {
+                                                                                               "pro_fraud":  {
+                                                                                                                 "risk_score":  0.94,
+                                                                                                                 "suggested_decision":  "ESCALATE_TO_HUMAN"
+                                                                                                             },
+                                                                                               "pro_customer":  {
+                                                                                                                    "customer_trust_score":  0.0,
+                                                                                                                    "suggested_decision":  "ESCALATE_TO_HUMAN"
+                                                                                                                }
+                                                                                           }
+                                                                             },
+                                                                             {
+                                                                                 "step":  "contradiction_detected",
+                                                                                 "value":  false
+                                                                             },
+                                                                             {
+                                                                                 "step":  "decision_basis",
+                                                                                 "value":  "policy_fp02_or_geo_device_risk"
+                                                                             },
+                                                                             {
+                                                                                 "step":  "final_decision",
+                                                                                 "value":  "ESCALATE_TO_HUMAN"
+                                                                             },
+                                                                             {
+                                                                                 "step":  "final_confidence",
+                                                                                 "value":  0.6
+                                                                             },
+                                                                             {
+                                                                                 "step":  "requires_human_review",
+                                                                                 "value":  true
+                                                                             }
+                                                                         ]
+                                                  },
+                            "assigned_to":  null,
+                            "reviewer":  null,
+                            "resolution":  null,
+                            "resolution_notes":  null,
+                            "created_at":  "2026-06-15T10:09:23.888161+00:00",
+                            "resolved_at":  null
+                        },
+    "audit_saved":  true,
+    "audit_event_id":  "AUDIT-T-1005-2026-06-15T10:09:23.891208+00:00",
+    "confidence_level":  "MEDIUM",
+    "confidence_factors":  [
+                               {
+                                   "factor":  "internal_behavioral_signals",
+                                   "impact":  0.15000000000000002,
+                                   "direction":  "increase_risk_confidence",
+                                   "description":  "Se detectaron seÃ±ales internas de comportamiento transaccional.",
+                                   "evidence":  {
+                                                    "signal_tags":  [
+                                                                        "signal_b",
+                                                                        "signal_c",
+                                                                        "signal_d"
+                                                                    ],
+                                                    "signals":  [
+                                                                    "Horario no habitual",
+                                                                    "PaÃ­s inusual",
+                                                                    "Dispositivo desconocido"
+                                                                ]
+                                                }
+                               },
+                               {
+                                   "factor":  "internal_policy_rag_match",
+                                   "impact":  0.15,
+                                   "direction":  "increase_policy_grounding",
+                                   "description":  "El RAG interno recuperÃ³ polÃ­ticas aplicables como evidencia.",
+                                   "evidence":  {
+                                                    "rag_policy_ids":  [
+                                                                           "FP-02",
+                                                                           "FP-01"
+                                                                       ],
+                                                    "citations_internal":  [
+                                                                               {
+                                                                                   "policy_id":  "FP-02",
+                                                                                   "chunk_id":  "policy-fp02-001",
+                                                                                   "version":  "2025.1"
+                                                                               },
+                                                                               {
+                                                                                   "policy_id":  "FP-01",
+                                                                                   "chunk_id":  "policy-fp01-001",
+                                                                                   "version":  "2025.1"
+                                                                               }
+                                                                           ]
+                                                }
+                               },
+                               {
+                                   "factor":  "external_threat_intelligence",
+                                   "impact":  0.2,
+                                   "direction":  "increase_external_risk_confidence",
+                                   "description":  "Se incorporÃ³ evidencia externa gobernada al anÃ¡lisis.",
+                                   "evidence":  {
+                                                    "external_signals":  [
+                                                                             "PaÃ­s con alerta transaccional reciente",
+                                                                             "Canal mÃ³vil con monitoreo reforzado"
+                                                                         ],
+                                                    "citations_external":  [
+                                                                               {
+                                                                                   "threat_id":  "EXT-002",
+                                                                                   "url":  "https://example.com/cross-border-fraud-alert-us",
+                                                                                   "summary":  "Se detectaron reportes recientes de fraude en transacciones transfronterizas hacia este paÃ­s.",
+                                                                                   "risk_level":  "HIGH",
+                                                                                   "source_type":  "governed_mock_source"
+                                                                               },
+                                                                               {
+                                                                                   "threat_id":  "EXT-003",
+                                                                                   "url":  "https://example.com/mobile-channel-risk-monitoring",
+                                                                                   "summary":  "El canal mÃ³vil presenta monitoreo reforzado para operaciones de alto monto.",
+                                                                                   "risk_level":  "LOW",
+                                                                                   "source_type":  "governed_mock_source"
+                                                                               }
+                                                                           ],
+                                                    "max_risk_level":  "HIGH"
+                                                }
+                               },
+                               {
+                                   "factor":  "pro_fraud_debate_score",
+                                   "impact":  0.94,
+                                   "direction":  "fraud_argument_strength",
+                                   "description":  "Score generado por el agente Pro-Fraud como fuerza argumentativa de riesgo.",
+                                   "evidence":  {
+                                                    "pro_fraud_score":  0.94
+                                                }
+                               },
+                               {
+                                   "factor":  "pro_customer_trust_score",
+                                   "impact":  0.0,
+                                   "direction":  "customer_legitimacy_strength",
+                                   "description":  "Score generado por el agente Pro-Customer como fuerza argumentativa de legitimidad.",
+                                   "evidence":  {
+                                                    "customer_trust_score":  0.0
+                                                }
+                               },
+                               {
+                                   "factor":  "human_review_required",
+                                   "impact":  -0.15,
+                                   "direction":  "decrease_automation_confidence",
+                                   "description":  "La evaluaciÃ³n requiere revisiÃ³n humana, lo que reduce la confianza de automatizaciÃ³n.",
+                                   "evidence":  {
+                                                    "requires_human_review":  true
+                                                }
+                               },
+                               {
+                                   "factor":  "applied_decision_rule",
+                                   "impact":  0.15,
+                                   "direction":  "rule_based_confidence_anchor",
+                                   "description":  "La confianza se ancla en la regla aplicada por el DecisionArbiterAgent.",
+                                   "evidence":  {
+                                                    "decision":  "ESCALATE_TO_HUMAN",
+                                                    "basis":  "policy_fp02_or_geo_device_risk",
+                                                    "confidence":  0.6
+                                                }
+                               }
+                           ],
+    "agent_trace":  [
+                        {
+                            "agent":  "TransactionContextAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "transaction_id":  "T-1005",
+                                            "customer_id":  "CU-001",
+                                            "transaction_hour":  2
+                                        },
+                            "timestamp":  "2026-06-15T10:09:16.427230+00:00"
+                        },
+                        {
+                            "agent":  "BehavioralPatternAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "signal_tags":  [
+                                                                "signal_b",
+                                                                "signal_c",
+                                                                "signal_d"
+                                                            ],
+                                            "signals_count":  3
+                                        },
+                            "timestamp":  "2026-06-15T10:09:16.427230+00:00"
+                        },
+                        {
+                            "agent":  "InternalPolicyRAGAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "retrieved_policies":  [
+                                                                       "FP-02",
+                                                                       "FP-01"
+                                                                   ],
+                                            "citations_internal_count":  2
+                                        },
+                            "timestamp":  "2026-06-15T10:09:17.436514+00:00"
+                        },
+                        {
+                            "agent":  "ExternalThreatIntelAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "external_signals":  [
+                                                                     "PaÃ­s con alerta transaccional reciente",
+                                                                     "Canal mÃ³vil con monitoreo reforzado"
+                                                                 ],
+                                            "citations_external_count":  2
+                                        },
+                            "timestamp":  "2026-06-15T10:09:17.440151+00:00"
+                        },
+                        {
+                            "agent":  "EvidenceAggregationAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "internal_signals_count":  3,
+                                            "external_signals_count":  2,
+                                            "rag_policies":  [
+                                                                 "FP-02",
+                                                                 "FP-01"
+                                                             ]
+                                        },
+                            "timestamp":  "2026-06-15T10:09:17.440151+00:00"
+                        },
+                        {
+                            "agent":  "ProFraudDebateAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "position":  "SUSPECTED_FRAUD",
+                                            "risk_score":  0.94,
+                                            "arguments_count":  6,
+                                            "suggested_decision":  "ESCALATE_TO_HUMAN",
+                                            "llm_used":  true,
+                                            "llm_error":  null
+                                        },
+                            "timestamp":  "2026-06-15T10:09:21.729541+00:00"
+                        },
+                        {
+                            "agent":  "ProCustomerDebateAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "position":  "POSSIBLY_LEGITIMATE",
+                                            "customer_trust_score":  0.0,
+                                            "arguments_count":  1,
+                                            "suggested_decision":  "ESCALATE_TO_HUMAN",
+                                            "llm_used":  true,
+                                            "llm_error":  null
+                                        },
+                            "timestamp":  "2026-06-15T10:09:23.880844+00:00"
+                        },
+                        {
+                            "agent":  "DecisionArbiterAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "decision":  "ESCALATE_TO_HUMAN",
+                                            "confidence":  0.6,
+                                            "confidence_level":  "MEDIUM",
+                                            "confidence_factors_count":  7,
+                                            "requires_human_review":  true,
+                                            "basis_type":  "policy_fp02_or_geo_device_risk",
+                                            "applied_rule":  {
+                                                                 "rule_code":  "policy_fp02_or_geo_device_risk",
+                                                                 "rule_description":  "Se recuperÃ³ FP-02 o se detectÃ³ combinaciÃ³n de paÃ­s/dispositivo nuevo que requiere revisiÃ³n humana."
+                                                             }
+                                        },
+                            "timestamp":  "2026-06-15T10:09:23.883186+00:00"
+                        },
+                        {
+                            "agent":  "ExplainabilityAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "generated_customer_explanation":  true,
+                                            "generated_audit_explanation":  true
+                                        },
+                            "timestamp":  "2026-06-15T10:09:23.886110+00:00"
+                        },
+                        {
+                            "agent":  "HITLRouterAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "hitl_required":  true,
+                                            "hitl_reason":  "El Ã¡rbitro marcÃ³ el caso como requerido para revisiÃ³n humana.",
+                                            "hitl_queue_id":  "HITL-T-1005-20260615T100923888161Z",
+                                            "priority":  "HIGH",
+                                            "basis_type":  "policy_fp02_or_geo_device_risk"
+                                        },
+                            "timestamp":  "2026-06-15T10:09:23.888161+00:00"
+                        },
+                        {
+                            "agent":  "AuditTrailAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "audit_saved":  true,
+                                            "audit_event_id":  "AUDIT-T-1005-2026-06-15T10:09:23.891208+00:00",
+                                            "audit_file":  "C:\\Users\\JCristobal\\Desktop\\Jorge-GlexcoRobotics\\Jorge_Cristobal\\credicorp-ai-engineer\\credicorp_ws\\multi-agent-fraud-detection-1.0.0\\backend\\data\\audit\\audit_trail.jsonl"
+                                        },
+                            "timestamp":  "2026-06-15T10:09:23.891208+00:00"
+                        }
+                    ],
+    "decision_trace":  [
+                           {
+                               "step":  "signals_detected",
+                               "value":  {
+                                             "signal_tags":  [
+                                                                 "signal_b",
+                                                                 "signal_c",
+                                                                 "signal_d"
+                                                             ],
+                                             "signals":  [
+                                                             "Horario no habitual",
+                                                             "PaÃ­s inusual",
+                                                             "Dispositivo desconocido"
+                                                         ]
+                                         }
+                           },
+                           {
+                               "step":  "internal_rag_evidence",
+                               "value":  {
+                                             "rag_policy_ids":  [
+                                                                    "FP-02",
+                                                                    "FP-01"
+                                                                ],
+                                             "citations_internal":  [
+                                                                        {
+                                                                            "policy_id":  "FP-02",
+                                                                            "chunk_id":  "policy-fp02-001",
+                                                                            "version":  "2025.1"
+                                                                        },
+                                                                        {
+                                                                            "policy_id":  "FP-01",
+                                                                            "chunk_id":  "policy-fp01-001",
+                                                                            "version":  "2025.1"
+                                                                        }
+                                                                    ]
+                                         }
+                           },
+                           {
+                               "step":  "external_threat_evidence",
+                               "value":  {
+                                             "external_signals":  [
+                                                                      "PaÃ­s con alerta transaccional reciente",
+                                                                      "Canal mÃ³vil con monitoreo reforzado"
+                                                                  ],
+                                             "citations_external":  [
+                                                                        {
+                                                                            "threat_id":  "EXT-002",
+                                                                            "url":  "https://example.com/cross-border-fraud-alert-us",
+                                                                            "summary":  "Se detectaron reportes recientes de fraude en transacciones transfronterizas hacia este paÃ­s.",
+                                                                            "risk_level":  "HIGH",
+                                                                            "source_type":  "governed_mock_source"
+                                                                        },
+                                                                        {
+                                                                            "threat_id":  "EXT-003",
+                                                                            "url":  "https://example.com/mobile-channel-risk-monitoring",
+                                                                            "summary":  "El canal mÃ³vil presenta monitoreo reforzado para operaciones de alto monto.",
+                                                                            "risk_level":  "LOW",
+                                                                            "source_type":  "governed_mock_source"
+                                                                        }
+                                                                    ]
+                                         }
+                           },
+                           {
+                               "step":  "debate_arguments",
+                               "value":  {
+                                             "pro_fraud":  {
+                                                               "risk_score":  0.94,
+                                                               "suggested_decision":  "ESCALATE_TO_HUMAN"
+                                                           },
+                                             "pro_customer":  {
+                                                                  "customer_trust_score":  0.0,
+                                                                  "suggested_decision":  "ESCALATE_TO_HUMAN"
+                                                              }
+                                         }
+                           },
+                           {
+                               "step":  "contradiction_detected",
+                               "value":  false
+                           },
+                           {
+                               "step":  "decision_basis",
+                               "value":  "policy_fp02_or_geo_device_risk"
+                           },
+                           {
+                               "step":  "final_decision",
+                               "value":  "ESCALATE_TO_HUMAN"
+                           },
+                           {
+                               "step":  "final_confidence",
+                               "value":  0.6
+                           },
+                           {
+                               "step":  "requires_human_review",
+                               "value":  true
+                           }
+                       ],
+    "errors":  [
+
+               ]
+}

@@ -1,0 +1,99 @@
+﻿{
+    "status":  "ready",
+    "level":  "4",
+    "environment":  "local",
+    "runtime":  {
+                    "app_version":  "4.0.0",
+                    "environment":  "local",
+                    "storage_provider":  "local_jsonl",
+                    "rag_provider":  "local_vectorstore",
+                    "secret_provider":  "env",
+                    "llm_enabled":  true,
+                    "llm_provider":  "openai",
+                    "embedding_provider":  "openai",
+                    "observability_provider":  "local_jsonl",
+                    "auth_enabled":  false
+                },
+    "checks":  {
+                   "storage_provider_supported":  {
+                                                      "ok":  true,
+                                                      "value":  "local_jsonl",
+                                                      "supported":  [
+                                                                        "azure_cosmos",
+                                                                        "local_jsonl"
+                                                                    ]
+                                                  },
+                   "rag_provider_supported":  {
+                                                  "ok":  true,
+                                                  "value":  "local_vectorstore",
+                                                  "supported":  [
+                                                                    "azure_ai_search",
+                                                                    "local_vectorstore"
+                                                                ]
+                                              },
+                   "observability_provider_supported":  {
+                                                            "ok":  true,
+                                                            "value":  "local_jsonl",
+                                                            "supported":  [
+                                                                              "application_insights",
+                                                                              "local_jsonl"
+                                                                          ]
+                                                        },
+                   "transactions_csv":  {
+                                            "ok":  true,
+                                            "path":  "C:\\Users\\JCristobal\\Desktop\\Jorge-GlexcoRobotics\\Jorge_Cristobal\\credicorp-ai-engineer\\credicorp_ws\\multi-agent-fraud-detection-1.0.0\\backend\\data\\source\\transactions.csv"
+                                        },
+                   "customer_behavior_csv":  {
+                                                 "ok":  true,
+                                                 "path":  "C:\\Users\\JCristobal\\Desktop\\Jorge-GlexcoRobotics\\Jorge_Cristobal\\credicorp-ai-engineer\\credicorp_ws\\multi-agent-fraud-detection-1.0.0\\backend\\data\\source\\customer_behivor.csv"
+                                             },
+                   "fraud_policy_json":  {
+                                             "ok":  true,
+                                             "path":  "C:\\Users\\JCristobal\\Desktop\\Jorge-GlexcoRobotics\\Jorge_Cristobal\\credicorp-ai-engineer\\credicorp_ws\\multi-agent-fraud-detection-1.0.0\\backend\\resources\\fraud_policies_nivel_02.json"
+                                         },
+                   "external_threat_context_json":  {
+                                                        "ok":  true,
+                                                        "path":  "C:\\Users\\JCristobal\\Desktop\\Jorge-GlexcoRobotics\\Jorge_Cristobal\\credicorp-ai-engineer\\credicorp_ws\\multi-agent-fraud-detection-1.0.0\\backend\\resources\\external_threat_context.json"
+                                                    },
+                   "audit_trail_parent":  {
+                                              "ok":  true,
+                                              "path":  "C:\\Users\\JCristobal\\Desktop\\Jorge-GlexcoRobotics\\Jorge_Cristobal\\credicorp-ai-engineer\\credicorp_ws\\multi-agent-fraud-detection-1.0.0\\backend\\data\\audit\\audit_trail.jsonl",
+                                              "parent":  "C:\\Users\\JCristobal\\Desktop\\Jorge-GlexcoRobotics\\Jorge_Cristobal\\credicorp-ai-engineer\\credicorp_ws\\multi-agent-fraud-detection-1.0.0\\backend\\data\\audit"
+                                          },
+                   "hitl_queue_parent":  {
+                                             "ok":  true,
+                                             "path":  "C:\\Users\\JCristobal\\Desktop\\Jorge-GlexcoRobotics\\Jorge_Cristobal\\credicorp-ai-engineer\\credicorp_ws\\multi-agent-fraud-detection-1.0.0\\backend\\data\\hitl\\hitl_queue.jsonl",
+                                             "parent":  "C:\\Users\\JCristobal\\Desktop\\Jorge-GlexcoRobotics\\Jorge_Cristobal\\credicorp-ai-engineer\\credicorp_ws\\multi-agent-fraud-detection-1.0.0\\backend\\data\\hitl"
+                                         },
+                   "policy_chunks_json":  {
+                                              "ok":  true,
+                                              "path":  "C:\\Users\\JCristobal\\Desktop\\Jorge-GlexcoRobotics\\Jorge_Cristobal\\credicorp-ai-engineer\\credicorp_ws\\multi-agent-fraud-detection-1.0.0\\backend\\rag\\vectorstore\\policy_index\\policy_chunks.json"
+                                          },
+                   "policy_embeddings_npy":  {
+                                                 "ok":  true,
+                                                 "path":  "C:\\Users\\JCristobal\\Desktop\\Jorge-GlexcoRobotics\\Jorge_Cristobal\\credicorp-ai-engineer\\credicorp_ws\\multi-agent-fraud-detection-1.0.0\\backend\\rag\\vectorstore\\policy_index\\policy_embeddings.npy"
+                                             },
+                   "agent_events_parent":  {
+                                               "ok":  true,
+                                               "path":  "C:\\Users\\JCristobal\\Desktop\\Jorge-GlexcoRobotics\\Jorge_Cristobal\\credicorp-ai-engineer\\credicorp_ws\\multi-agent-fraud-detection-1.0.0\\backend\\data\\observability\\agent_events.jsonl",
+                                               "parent":  "C:\\Users\\JCristobal\\Desktop\\Jorge-GlexcoRobotics\\Jorge_Cristobal\\credicorp-ai-engineer\\credicorp_ws\\multi-agent-fraud-detection-1.0.0\\backend\\data\\observability"
+                                           },
+                   "llm_provider_supported":  {
+                                                  "ok":  true,
+                                                  "value":  "openai",
+                                                  "supported":  [
+                                                                    "azure_openai",
+                                                                    "openai"
+                                                                ]
+                                              },
+                   "openai_api_key":  {
+                                          "ok":  true,
+                                          "configured":  true,
+                                          "value":  "***"
+                                      },
+                   "auth_disabled":  {
+                                         "ok":  true,
+                                         "message":  "AUTH_ENABLED=false. API key validation is disabled."
+                                     }
+               }
+}

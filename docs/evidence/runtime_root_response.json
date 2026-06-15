@@ -1,0 +1,23 @@
+﻿{
+    "status":  "running",
+    "level":  "4",
+    "architecture":  "langgraph_multi_agent_cloud_ready",
+    "rag_enabled":  true,
+    "llm_enabled":  true,
+    "hitl_enabled":  true,
+    "audit_trail_enabled":  true,
+    "observability_enabled":  true,
+    "schema_validation_enabled":  true,
+    "runtime":  {
+                    "app_version":  "4.0.0",
+                    "environment":  "local",
+                    "storage_provider":  "local_jsonl",
+                    "rag_provider":  "local_vectorstore",
+                    "secret_provider":  "env",
+                    "llm_enabled":  true,
+                    "llm_provider":  "openai",
+                    "embedding_provider":  "openai",
+                    "observability_provider":  "local_jsonl",
+                    "auth_enabled":  false
+                }
+}

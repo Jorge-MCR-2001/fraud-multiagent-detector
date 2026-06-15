@@ -1,0 +1,624 @@
+﻿{
+    "transaction_id":  "T-1007",
+    "decision":  "CHALLENGE",
+    "confidence":  0.65,
+    "decision_basis":  {
+                           "basis_type":  "policy_fp01_or_amount_time_risk",
+                           "decision":  "CHALLENGE",
+                           "confidence":  0.65,
+                           "requires_human_review":  false,
+                           "internal_signals":  {
+                                                    "signal_count":  2,
+                                                    "signal_tags":  [
+                                                                        "signal_a",
+                                                                        "signal_b"
+                                                                    ],
+                                                    "signals":  [
+                                                                    "Monto fuera de rango",
+                                                                    "Horario no habitual"
+                                                                ]
+                                                },
+                           "internal_policy_evidence":  {
+                                                            "rag_policy_ids":  [
+                                                                                   "FP-01"
+                                                                               ],
+                                                            "citations_internal":  [
+                                                                                       {
+                                                                                           "policy_id":  "FP-01",
+                                                                                           "chunk_id":  "policy-fp01-001",
+                                                                                           "version":  "2025.1"
+                                                                                       }
+                                                                                   ]
+                                                        },
+                           "external_threat_evidence":  {
+                                                            "has_external_evidence":  true,
+                                                            "external_signals":  [
+                                                                                     "Alerta externa en merchant",
+                                                                                     "Canal mÃ³vil con monitoreo reforzado"
+                                                                                 ],
+                                                            "citations_external":  [
+                                                                                       {
+                                                                                           "threat_id":  "EXT-001",
+                                                                                           "url":  "https://example.com/fraud-alert-merchant-m002",
+                                                                                           "summary":  "Se identificÃ³ un incremento reciente de transacciones anÃ³malas asociadas al merchant M-002.",
+                                                                                           "risk_level":  "MEDIUM",
+                                                                                           "source_type":  "governed_mock_source"
+                                                                                       },
+                                                                                       {
+                                                                                           "threat_id":  "EXT-003",
+                                                                                           "url":  "https://example.com/mobile-channel-risk-monitoring",
+                                                                                           "summary":  "El canal mÃ³vil presenta monitoreo reforzado para operaciones de alto monto.",
+                                                                                           "risk_level":  "LOW",
+                                                                                           "source_type":  "governed_mock_source"
+                                                                                       }
+                                                                                   ]
+                                                        },
+                           "debate_summary":  {
+                                                  "pro_fraud_score":  0.76,
+                                                  "pro_fraud_suggestion":  "CHALLENGE",
+                                                  "customer_trust_score":  0.54,
+                                                  "pro_customer_suggestion":  "CHALLENGE",
+                                                  "contradiction_detected":  false
+                                              },
+                           "applied_rule":  {
+                                                "rule_code":  "policy_fp01_or_amount_time_risk",
+                                                "rule_description":  "Se recuperÃ³ FP-01 o se detectÃ³ combinaciÃ³n de monto fuera de rango y horario no habitual."
+                                            }
+                       },
+    "decision_rationale":  "DecisiÃ³n final: CHALLENGE. Criterio aplicado: policy_fp01_or_amount_time_risk. SeÃ±ales internas detectadas: Monto fuera de rango, Horario no habitual. PolÃ­ticas recuperadas por RAG: FP-01. SeÃ±ales externas consideradas: Alerta externa en merchant, Canal mÃ³vil con monitoreo reforzado. Score Pro-Fraud: 0.76. Score Pro-Customer: 0.54.",
+    "requires_human_review":  false,
+    "signals":  [
+                    "Monto fuera de rango",
+                    "Horario no habitual"
+                ],
+    "signal_tags":  [
+                        "signal_a",
+                        "signal_b"
+                    ],
+    "signal_metrics":  {
+
+                       },
+    "citations_internal":  [
+                               {
+                                   "policy_id":  "FP-01",
+                                   "chunk_id":  "policy-fp01-001",
+                                   "version":  "2025.1"
+                               }
+                           ],
+    "citations_external":  [
+                               {
+                                   "threat_id":  "EXT-001",
+                                   "source_id":  null,
+                                   "source_type":  "governed_mock_source",
+                                   "url":  "https://example.com/fraud-alert-merchant-m002",
+                                   "title":  null,
+                                   "summary":  "Se identificÃ³ un incremento reciente de transacciones anÃ³malas asociadas al merchant M-002.",
+                                   "risk_level":  "MEDIUM",
+                                   "matched_field":  null,
+                                   "matched_value":  null
+                               },
+                               {
+                                   "threat_id":  "EXT-003",
+                                   "source_id":  null,
+                                   "source_type":  "governed_mock_source",
+                                   "url":  "https://example.com/mobile-channel-risk-monitoring",
+                                   "title":  null,
+                                   "summary":  "El canal mÃ³vil presenta monitoreo reforzado para operaciones de alto monto.",
+                                   "risk_level":  "LOW",
+                                   "matched_field":  null,
+                                   "matched_value":  null
+                               }
+                           ],
+    "evidence_bundle":  {
+                            "transaction_id":  "T-1007",
+                            "transaction_context":  {
+                                                        "transaction_id":  "T-1007",
+                                                        "customer_id":  "CU-002",
+                                                        "amount":  9600,
+                                                        "currency":  "PEN",
+                                                        "country":  "PE",
+                                                        "channel":  "mobile",
+                                                        "device_id":  "D-02",
+                                                        "timestamp":  "2025-12-17T23:50:00",
+                                                        "transaction_hour":  23,
+                                                        "merchant_id":  "M-002"
+                                                    },
+                            "customer_behavior":  {
+                                                      "customer_id":  "CU-002",
+                                                      "usual_amount_avg":  1200,
+                                                      "usual_hours":  "09-22",
+                                                      "usual_countries":  "PE",
+                                                      "usual_devices":  "D-02"
+                                                  },
+                            "internal_evidence":  {
+                                                      "signal_tags":  [
+                                                                          "signal_a",
+                                                                          "signal_b"
+                                                                      ],
+                                                      "signals":  [
+                                                                      "Monto fuera de rango",
+                                                                      "Horario no habitual"
+                                                                  ],
+                                                      "signal_metrics":  {
+                                                                             "transaction_amount":  9600.0,
+                                                                             "usual_amount_avg":  1200.0,
+                                                                             "amount_ratio":  8.0,
+                                                                             "transaction_hour":  23,
+                                                                             "usual_hours":  "09-22",
+                                                                             "usual_start_hour":  9,
+                                                                             "usual_end_hour":  22,
+                                                                             "transaction_country":  "PE",
+                                                                             "usual_countries":  [
+                                                                                                     "PE"
+                                                                                                 ],
+                                                                             "transaction_device":  "D-02",
+                                                                             "usual_devices":  [
+                                                                                                   "D-02"
+                                                                                               ]
+                                                                         },
+                                                      "signals_count":  2
+                                                  },
+                            "rag_evidence":  {
+                                                 "rag_policy_context":  [
+                                                                            {
+                                                                                "policy_id":  "FP-01",
+                                                                                "chunk_id":  "policy-fp01-001",
+                                                                                "version":  "2025.1",
+                                                                                "content":  "Politica interna: FP-01, Version: 2025.1,  Regla oficial: Monto \u003e 3x promedio habitual y horario fuera de rango -\u003e CHALLENGE, Accion sugerida explicita en la regla: CHALLENGE, SeÃ±ales internas asociadas: signal_a, signal_b, Esta politica se usa como evidencia interna recuperada por RAG, para agentes posteriores. NO REPRESENTA la decision final.",
+                                                                                "suggested_action":  "CHALLENGE",
+                                                                                "required_signals":  [
+                                                                                                         "signal_a",
+                                                                                                         "signal_b"
+                                                                                                     ],
+                                                                                "retrieval_score":  0.5091,
+                                                                                "hybrid_score":  0.9091
+                                                                            }
+                                                                        ],
+                                                 "citations_internal":  [
+                                                                            {
+                                                                                "policy_id":  "FP-01",
+                                                                                "chunk_id":  "policy-fp01-001",
+                                                                                "version":  "2025.1"
+                                                                            }
+                                                                        ],
+                                                 "retrieved_policy_ids":  [
+                                                                              "FP-01"
+                                                                          ],
+                                                 "required_signals_from_rag":  [
+                                                                                   "signal_a",
+                                                                                   "signal_b"
+                                                                               ],
+                                                 "internal_citations_count":  1
+                                             },
+                            "external_evidence":  {
+                                                      "external_signals":  [
+                                                                               "Alerta externa en merchant",
+                                                                               "Canal mÃ³vil con monitoreo reforzado"
+                                                                           ],
+                                                      "citations_external":  [
+                                                                                 {
+                                                                                     "threat_id":  "EXT-001",
+                                                                                     "url":  "https://example.com/fraud-alert-merchant-m002",
+                                                                                     "summary":  "Se identificÃ³ un incremento reciente de transacciones anÃ³malas asociadas al merchant M-002.",
+                                                                                     "risk_level":  "MEDIUM",
+                                                                                     "source_type":  "governed_mock_source"
+                                                                                 },
+                                                                                 {
+                                                                                     "threat_id":  "EXT-003",
+                                                                                     "url":  "https://example.com/mobile-channel-risk-monitoring",
+                                                                                     "summary":  "El canal mÃ³vil presenta monitoreo reforzado para operaciones de alto monto.",
+                                                                                     "risk_level":  "LOW",
+                                                                                     "source_type":  "governed_mock_source"
+                                                                                 }
+                                                                             ],
+                                                      "external_threat_context":  [
+                                                                                      {
+                                                                                          "threat_id":  "EXT-001",
+                                                                                          "merchant_id":  "M-002",
+                                                                                          "risk_level":  "MEDIUM",
+                                                                                          "signal":  "Alerta externa en merchant",
+                                                                                          "summary":  "Se identificÃ³ un incremento reciente de transacciones anÃ³malas asociadas al merchant M-002.",
+                                                                                          "url":  "https://example.com/fraud-alert-merchant-m002",
+                                                                                          "source_type":  "governed_mock_source"
+                                                                                      },
+                                                                                      {
+                                                                                          "threat_id":  "EXT-003",
+                                                                                          "channel":  "mobile",
+                                                                                          "risk_level":  "LOW",
+                                                                                          "signal":  "Canal mÃ³vil con monitoreo reforzado",
+                                                                                          "summary":  "El canal mÃ³vil presenta monitoreo reforzado para operaciones de alto monto.",
+                                                                                          "url":  "https://example.com/mobile-channel-risk-monitoring",
+                                                                                          "source_type":  "governed_mock_source"
+                                                                                      }
+                                                                                  ],
+                                                      "external_signals_count":  2,
+                                                      "external_citations_count":  2
+                                                  },
+                            "risk_summary":  {
+                                                 "total_internal_signals":  2,
+                                                 "total_external_signals":  2,
+                                                 "total_internal_citations":  1,
+                                                 "total_external_citations":  2,
+                                                 "has_rag_evidence":  true,
+                                                 "has_external_evidence":  true,
+                                                 "has_fp01":  true,
+                                                 "has_fp02":  false
+                                             }
+                        },
+    "pro_fraud_argument":  {
+                               "position":  "SUSPECTED_FRAUD",
+                               "arguments":  [
+                                                 "El monto de la transacciÃ³n se encuentra fuera del patrÃ³n habitual del cliente.",
+                                                 "La transacciÃ³n ocurriÃ³ fuera del horario habitual de operaciÃ³n del cliente.",
+                                                 "El RAG interno recuperÃ³ polÃ­ticas asociadas al patrÃ³n de riesgo detectado: FP-01.",
+                                                 "Se encontraron seÃ±ales externas relacionadas: Alerta externa en merchant, Canal mÃ³vil con monitoreo reforzado.",
+                                                 "Existen citas externas asociadas a fuentes gobernadas de inteligencia de amenazas."
+                                             ],
+                               "llm_argument":  "La transacciÃ³n presenta un riesgo elevado debido a que el monto excede el patrÃ³n habitual del cliente y se realizÃ³ en un horario atÃ­pico, lo que activa seÃ±ales internas relevantes. AdemÃ¡s, el sistema identificÃ³ la polÃ­tica FP-01 asociada a patrones de riesgo especÃ­ficos. Se corroboran estas seÃ±ales con alertas externas en el comercio involucrado y un canal mÃ³vil bajo monitoreo reforzado, junto con citas externas de fuentes confiables de inteligencia de amenazas, lo que justifica un anÃ¡lisis mÃ¡s exhaustivo.",
+                               "llm_used":  true,
+                               "llm_error":  null,
+                               "risk_score":  0.76,
+                               "suggested_decision":  "CHALLENGE",
+                               "supporting_signals":  [
+                                                          "Monto fuera de rango",
+                                                          "Horario no habitual"
+                                                      ],
+                               "supporting_policy_ids":  [
+                                                             "FP-01"
+                                                         ],
+                               "supporting_external_signals":  [
+                                                                   "Alerta externa en merchant",
+                                                                   "Canal mÃ³vil con monitoreo reforzado"
+                                                               ]
+                           },
+    "pro_customer_argument":  {
+                                  "position":  "POSSIBLY_LEGITIMATE",
+                                  "arguments":  [
+                                                    "El paÃ­s de la transacciÃ³n coincide con el paÃ­s habitual del cliente.",
+                                                    "El dispositivo utilizado coincide con un dispositivo habitual del cliente.",
+                                                    "La operaciÃ³n se realizÃ³ por el canal mobile, lo cual puede ser consistente con el comportamiento digital del cliente.",
+                                                    "No se detectÃ³ cambio geogrÃ¡fico inusual en la transacciÃ³n.",
+                                                    "No se detectÃ³ uso de dispositivo desconocido."
+                                                ],
+                                  "llm_argument":  "Aunque la transacciÃ³n presenta seÃ±ales de monto fuera de rango y horario no habitual, el paÃ­s y el dispositivo utilizados coinciden con los habituales del cliente, y no se detectaron cambios geogrÃ¡ficos ni uso de dispositivos desconocidos. AdemÃ¡s, la operaciÃ³n se realizÃ³ a travÃ©s del canal mÃ³vil, consistente con el comportamiento digital del cliente, lo que sugiere que la transacciÃ³n podrÃ­a ser legÃ­tima a pesar de las alertas externas y el monitoreo reforzado en el canal.",
+                                  "llm_used":  true,
+                                  "llm_error":  null,
+                                  "customer_trust_score":  0.54,
+                                  "suggested_decision":  "CHALLENGE",
+                                  "countered_signals":  [
+                                                            "Monto fuera de rango",
+                                                            "Horario no habitual"
+                                                        ],
+                                  "known_customer_attributes":  {
+                                                                    "country_is_usual":  true,
+                                                                    "device_is_usual":  true,
+                                                                    "channel":  "mobile"
+                                                                }
+                              },
+    "explanation_customer":  "La transacciÃ³n requiere validaciÃ³n adicional debido a monto fuera de rango, horario no habitual.",
+    "explanation_audit":  "DecisiÃ³n final: CHALLENGE. Confianza: 0.65. Criterio aplicado: {\u0027basis_type\u0027: \u0027policy_fp01_or_amount_time_risk\u0027, \u0027decision\u0027: \u0027CHALLENGE\u0027, \u0027confidence\u0027: 0.65, \u0027requires_human_review\u0027: False, \u0027internal_signals\u0027: {\u0027signal_count\u0027: 2, \u0027signal_tags\u0027: [\u0027signal_a\u0027, \u0027signal_b\u0027], \u0027signals\u0027: [\u0027Monto fuera de rango\u0027, \u0027Horario no habitual\u0027]}, \u0027internal_policy_evidence\u0027: {\u0027rag_policy_ids\u0027: [\u0027FP-01\u0027], \u0027citations_internal\u0027: [{\u0027policy_id\u0027: \u0027FP-01\u0027, \u0027chunk_id\u0027: \u0027policy-fp01-001\u0027, \u0027version\u0027: \u00272025.1\u0027}]}, \u0027external_threat_evidence\u0027: {\u0027has_external_evidence\u0027: True, \u0027external_signals\u0027: [\u0027Alerta externa en merchant\u0027, \u0027Canal mÃ³vil con monitoreo reforzado\u0027], \u0027citations_external\u0027: [{\u0027threat_id\u0027: \u0027EXT-001\u0027, \u0027url\u0027: \u0027https://example.com/fraud-alert-merchant-m002\u0027, \u0027summary\u0027: \u0027Se identificÃ³ un incremento reciente de transacciones anÃ³malas asociadas al merchant M-002.\u0027, \u0027risk_level\u0027: \u0027MEDIUM\u0027, \u0027source_type\u0027: \u0027governed_mock_source\u0027}, {\u0027threat_id\u0027: \u0027EXT-003\u0027, \u0027url\u0027: \u0027https://example.com/mobile-channel-risk-monitoring\u0027, \u0027summary\u0027: \u0027El canal mÃ³vil presenta monitoreo reforzado para operaciones de alto monto.\u0027, \u0027risk_level\u0027: \u0027LOW\u0027, \u0027source_type\u0027: \u0027governed_mock_source\u0027}]}, \u0027debate_summary\u0027: {\u0027pro_fraud_score\u0027: 0.76, \u0027pro_fraud_suggestion\u0027: \u0027CHALLENGE\u0027, \u0027customer_trust_score\u0027: 0.54, \u0027pro_customer_suggestion\u0027: \u0027CHALLENGE\u0027, \u0027contradiction_detected\u0027: False}, \u0027applied_rule\u0027: {\u0027rule_code\u0027: \u0027policy_fp01_or_amount_time_risk\u0027, \u0027rule_description\u0027: \u0027Se recuperÃ³ FP-01 o se detectÃ³ combinaciÃ³n de monto fuera de rango y horario no habitual.\u0027}}. SeÃ±ales internas detectadas: Monto fuera de rango, Horario no habitual. Tags tÃ©cnicos asociados: signal_a, signal_b. PolÃ­ticas recuperadas por RAG: FP-01. Citas internas utilizadas: FP-01/policy-fp01-001. SeÃ±ales externas consideradas: Alerta externa en merchant, Canal mÃ³vil con monitoreo reforzado. Fuentes externas utilizadas: EXT-001, EXT-003. Argumento Pro-Fraud: score 0.76, sugerencia CHALLENGE. Argumento Pro-Customer: score 0.54, sugerencia CHALLENGE. Ruta de agentes: TransactionContextAgent â BehavioralPatternAgent â InternalPolicyRAGAgent â ExternalThreatIntelAgent â EvidenceAggregationAgent â ProFraudDebateAgent â ProCustomerDebateAgent â DecisionArbiterAgent.",
+    "hitl_required":  false,
+    "hitl_reason":  "No requiere revisiÃ³n humana.",
+    "hitl_queue_item":  null,
+    "audit_saved":  true,
+    "audit_event_id":  "AUDIT-T-1007-2026-06-15T10:09:10.164025+00:00",
+    "confidence_level":  "MEDIUM",
+    "confidence_factors":  [
+                               {
+                                   "factor":  "internal_behavioral_signals",
+                                   "impact":  0.1,
+                                   "direction":  "increase_risk_confidence",
+                                   "description":  "Se detectaron seÃ±ales internas de comportamiento transaccional.",
+                                   "evidence":  {
+                                                    "signal_tags":  [
+                                                                        "signal_a",
+                                                                        "signal_b"
+                                                                    ],
+                                                    "signals":  [
+                                                                    "Monto fuera de rango",
+                                                                    "Horario no habitual"
+                                                                ]
+                                                }
+                               },
+                               {
+                                   "factor":  "internal_policy_rag_match",
+                                   "impact":  0.15,
+                                   "direction":  "increase_policy_grounding",
+                                   "description":  "El RAG interno recuperÃ³ polÃ­ticas aplicables como evidencia.",
+                                   "evidence":  {
+                                                    "rag_policy_ids":  [
+                                                                           "FP-01"
+                                                                       ],
+                                                    "citations_internal":  [
+                                                                               {
+                                                                                   "policy_id":  "FP-01",
+                                                                                   "chunk_id":  "policy-fp01-001",
+                                                                                   "version":  "2025.1"
+                                                                               }
+                                                                           ]
+                                                }
+                               },
+                               {
+                                   "factor":  "external_threat_intelligence",
+                                   "impact":  0.1,
+                                   "direction":  "increase_external_risk_confidence",
+                                   "description":  "Se incorporÃ³ evidencia externa gobernada al anÃ¡lisis.",
+                                   "evidence":  {
+                                                    "external_signals":  [
+                                                                             "Alerta externa en merchant",
+                                                                             "Canal mÃ³vil con monitoreo reforzado"
+                                                                         ],
+                                                    "citations_external":  [
+                                                                               {
+                                                                                   "threat_id":  "EXT-001",
+                                                                                   "url":  "https://example.com/fraud-alert-merchant-m002",
+                                                                                   "summary":  "Se identificÃ³ un incremento reciente de transacciones anÃ³malas asociadas al merchant M-002.",
+                                                                                   "risk_level":  "MEDIUM",
+                                                                                   "source_type":  "governed_mock_source"
+                                                                               },
+                                                                               {
+                                                                                   "threat_id":  "EXT-003",
+                                                                                   "url":  "https://example.com/mobile-channel-risk-monitoring",
+                                                                                   "summary":  "El canal mÃ³vil presenta monitoreo reforzado para operaciones de alto monto.",
+                                                                                   "risk_level":  "LOW",
+                                                                                   "source_type":  "governed_mock_source"
+                                                                               }
+                                                                           ],
+                                                    "max_risk_level":  "MEDIUM"
+                                                }
+                               },
+                               {
+                                   "factor":  "pro_fraud_debate_score",
+                                   "impact":  0.76,
+                                   "direction":  "fraud_argument_strength",
+                                   "description":  "Score generado por el agente Pro-Fraud como fuerza argumentativa de riesgo.",
+                                   "evidence":  {
+                                                    "pro_fraud_score":  0.76
+                                                }
+                               },
+                               {
+                                   "factor":  "pro_customer_trust_score",
+                                   "impact":  0.54,
+                                   "direction":  "customer_legitimacy_strength",
+                                   "description":  "Score generado por el agente Pro-Customer como fuerza argumentativa de legitimidad.",
+                                   "evidence":  {
+                                                    "customer_trust_score":  0.54
+                                                }
+                               },
+                               {
+                                   "factor":  "applied_decision_rule",
+                                   "impact":  0.15,
+                                   "direction":  "rule_based_confidence_anchor",
+                                   "description":  "La confianza se ancla en la regla aplicada por el DecisionArbiterAgent.",
+                                   "evidence":  {
+                                                    "decision":  "CHALLENGE",
+                                                    "basis":  "policy_fp01_or_amount_time_risk",
+                                                    "confidence":  0.65
+                                                }
+                               }
+                           ],
+    "agent_trace":  [
+                        {
+                            "agent":  "TransactionContextAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "transaction_id":  "T-1007",
+                                            "customer_id":  "CU-002",
+                                            "transaction_hour":  23
+                                        },
+                            "timestamp":  "2026-06-15T10:09:03.600482+00:00"
+                        },
+                        {
+                            "agent":  "BehavioralPatternAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "signal_tags":  [
+                                                                "signal_a",
+                                                                "signal_b"
+                                                            ],
+                                            "signals_count":  2
+                                        },
+                            "timestamp":  "2026-06-15T10:09:03.602492+00:00"
+                        },
+                        {
+                            "agent":  "InternalPolicyRAGAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "retrieved_policies":  [
+                                                                       "FP-01"
+                                                                   ],
+                                            "citations_internal_count":  1
+                                        },
+                            "timestamp":  "2026-06-15T10:09:04.430520+00:00"
+                        },
+                        {
+                            "agent":  "ExternalThreatIntelAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "external_signals":  [
+                                                                     "Alerta externa en merchant",
+                                                                     "Canal mÃ³vil con monitoreo reforzado"
+                                                                 ],
+                                            "citations_external_count":  2
+                                        },
+                            "timestamp":  "2026-06-15T10:09:04.433117+00:00"
+                        },
+                        {
+                            "agent":  "EvidenceAggregationAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "internal_signals_count":  2,
+                                            "external_signals_count":  2,
+                                            "rag_policies":  [
+                                                                 "FP-01"
+                                                             ]
+                                        },
+                            "timestamp":  "2026-06-15T10:09:04.434362+00:00"
+                        },
+                        {
+                            "agent":  "ProFraudDebateAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "position":  "SUSPECTED_FRAUD",
+                                            "risk_score":  0.76,
+                                            "arguments_count":  5,
+                                            "suggested_decision":  "CHALLENGE",
+                                            "llm_used":  true,
+                                            "llm_error":  null
+                                        },
+                            "timestamp":  "2026-06-15T10:09:07.393718+00:00"
+                        },
+                        {
+                            "agent":  "ProCustomerDebateAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "position":  "POSSIBLY_LEGITIMATE",
+                                            "customer_trust_score":  0.54,
+                                            "arguments_count":  5,
+                                            "suggested_decision":  "CHALLENGE",
+                                            "llm_used":  true,
+                                            "llm_error":  null
+                                        },
+                            "timestamp":  "2026-06-15T10:09:10.157997+00:00"
+                        },
+                        {
+                            "agent":  "DecisionArbiterAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "decision":  "CHALLENGE",
+                                            "confidence":  0.65,
+                                            "confidence_level":  "MEDIUM",
+                                            "confidence_factors_count":  6,
+                                            "requires_human_review":  false,
+                                            "basis_type":  "policy_fp01_or_amount_time_risk",
+                                            "applied_rule":  {
+                                                                 "rule_code":  "policy_fp01_or_amount_time_risk",
+                                                                 "rule_description":  "Se recuperÃ³ FP-01 o se detectÃ³ combinaciÃ³n de monto fuera de rango y horario no habitual."
+                                                             }
+                                        },
+                            "timestamp":  "2026-06-15T10:09:10.160007+00:00"
+                        },
+                        {
+                            "agent":  "ExplainabilityAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "generated_customer_explanation":  true,
+                                            "generated_audit_explanation":  true
+                                        },
+                            "timestamp":  "2026-06-15T10:09:10.162016+00:00"
+                        },
+                        {
+                            "agent":  "HITLRouterAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "hitl_required":  false,
+                                            "hitl_reason":  "No requiere revisiÃ³n humana.",
+                                            "hitl_queue_id":  null,
+                                            "priority":  null,
+                                            "basis_type":  "policy_fp01_or_amount_time_risk"
+                                        },
+                            "timestamp":  "2026-06-15T10:09:10.164025+00:00"
+                        },
+                        {
+                            "agent":  "AuditTrailAgent",
+                            "status":  "completed",
+                            "details":  {
+                                            "audit_saved":  true,
+                                            "audit_event_id":  "AUDIT-T-1007-2026-06-15T10:09:10.164025+00:00",
+                                            "audit_file":  "C:\\Users\\JCristobal\\Desktop\\Jorge-GlexcoRobotics\\Jorge_Cristobal\\credicorp-ai-engineer\\credicorp_ws\\multi-agent-fraud-detection-1.0.0\\backend\\data\\audit\\audit_trail.jsonl"
+                                        },
+                            "timestamp":  "2026-06-15T10:09:10.166034+00:00"
+                        }
+                    ],
+    "decision_trace":  [
+                           {
+                               "step":  "signals_detected",
+                               "value":  {
+                                             "signal_tags":  [
+                                                                 "signal_a",
+                                                                 "signal_b"
+                                                             ],
+                                             "signals":  [
+                                                             "Monto fuera de rango",
+                                                             "Horario no habitual"
+                                                         ]
+                                         }
+                           },
+                           {
+                               "step":  "internal_rag_evidence",
+                               "value":  {
+                                             "rag_policy_ids":  [
+                                                                    "FP-01"
+                                                                ],
+                                             "citations_internal":  [
+                                                                        {
+                                                                            "policy_id":  "FP-01",
+                                                                            "chunk_id":  "policy-fp01-001",
+                                                                            "version":  "2025.1"
+                                                                        }
+                                                                    ]
+                                         }
+                           },
+                           {
+                               "step":  "external_threat_evidence",
+                               "value":  {
+                                             "external_signals":  [
+                                                                      "Alerta externa en merchant",
+                                                                      "Canal mÃ³vil con monitoreo reforzado"
+                                                                  ],
+                                             "citations_external":  [
+                                                                        {
+                                                                            "threat_id":  "EXT-001",
+                                                                            "url":  "https://example.com/fraud-alert-merchant-m002",
+                                                                            "summary":  "Se identificÃ³ un incremento reciente de transacciones anÃ³malas asociadas al merchant M-002.",
+                                                                            "risk_level":  "MEDIUM",
+                                                                            "source_type":  "governed_mock_source"
+                                                                        },
+                                                                        {
+                                                                            "threat_id":  "EXT-003",
+                                                                            "url":  "https://example.com/mobile-channel-risk-monitoring",
+                                                                            "summary":  "El canal mÃ³vil presenta monitoreo reforzado para operaciones de alto monto.",
+                                                                            "risk_level":  "LOW",
+                                                                            "source_type":  "governed_mock_source"
+                                                                        }
+                                                                    ]
+                                         }
+                           },
+                           {
+                               "step":  "debate_arguments",
+                               "value":  {
+                                             "pro_fraud":  {
+                                                               "risk_score":  0.76,
+                                                               "suggested_decision":  "CHALLENGE"
+                                                           },
+                                             "pro_customer":  {
+                                                                  "customer_trust_score":  0.54,
+                                                                  "suggested_decision":  "CHALLENGE"
+                                                              }
+                                         }
+                           },
+                           {
+                               "step":  "contradiction_detected",
+                               "value":  false
+                           },
+                           {
+                               "step":  "decision_basis",
+                               "value":  "policy_fp01_or_amount_time_risk"
+                           },
+                           {
+                               "step":  "final_decision",
+                               "value":  "CHALLENGE"
+                           },
+                           {
+                               "step":  "final_confidence",
+                               "value":  0.65
+                           },
+                           {
+                               "step":  "requires_human_review",
+                               "value":  false
+                           }
+                       ],
+    "errors":  [
+
+               ]
+}

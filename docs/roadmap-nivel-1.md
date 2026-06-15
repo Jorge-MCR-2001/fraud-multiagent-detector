@@ -103,7 +103,7 @@ Detector de Fraudes Multi Agentico - Nivel 01
                     }
                     },
                     {
-                    "agent": "BehaivoralPatternAgent",
+                    "agent": "BehavioralPatternAgent",
                     "status": "completed",
                     "details": {
                         "signal_tags": [
