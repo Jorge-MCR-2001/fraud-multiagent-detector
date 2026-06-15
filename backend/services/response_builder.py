@@ -10,6 +10,14 @@ def build_response(final_state:Dict[str, Any]) -> Dict[str, Any]: # Constructor 
         "decision_rationale": final_state.get("decision_rationale"),
         "requires_human_review": final_state.get("requires_human_review"),
 
+        "hitl_required": final_state.get("hitl_required"),
+        "hitl_reason": final_state.get("hitl_reason"),
+        "hitl_queue_item": final_state.get("hitl_queue_item", {}), # Asegura una lista valida
+
+        "audit_saved": final_state.get("audit_saved"),
+        "audit_event_id": final_state.get("audit_event_id"),
+        "audit_file": final_state.get("audit_file"),
+
         "signals": final_state.get("signals", []), # Asegura una lista valida
         "signal_tags": final_state.get("signal_tags", []), # Asegura una lista valida
 

@@ -10,8 +10,14 @@ load_dotenv(find_dotenv())
 
 # ------------------------------------- Ruta a DATA -------------------------------------
 DATA_DIR = BACKEND_DIR / "data"
-CUSTOMER_BEHIVOR_DIR = DATA_DIR / "customer_behivor.csv"
-TRANSACTIONS_DIR = DATA_DIR / "transactions.csv"
+
+SOURCE_DATA_DIR = DATA_DIR / "source"
+CUSTOMER_BEHIVOR_DIR = SOURCE_DATA_DIR / "customer_behivor.csv"
+TRANSACTIONS_DIR = SOURCE_DATA_DIR / "transactions.csv"
+
+AUDIT_DIR = DATA_DIR / "audit"
+AUDIT_TRAIL_JSONL = AUDIT_DIR / "audit_trail.jsonl"
+
 
 # ------------------------------------- Ruta a Resources -------------------------------------
 RESOURCES_DIR = BACKEND_DIR / "resources"
@@ -98,7 +104,3 @@ def validate_embedding_environment() -> None:
             f"Proveedor de embeddings no soportado: {EMBEDDING_PROVIDER}"
         )
     
-# ------------------------------------- Doc. de auditoria -------------------------------------
-
-AUDIT_DIR = BACKEND_DIR / "audit"
-AUDIT_TRAIL_JSONL = AUDIT_DIR / "audit_trail.jsonl"
