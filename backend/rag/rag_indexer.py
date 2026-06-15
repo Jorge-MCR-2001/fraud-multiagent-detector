@@ -5,10 +5,12 @@ from typing import List, Dict, Any, Optional
 import numpy as np
 
 from rag.embedding_client import EmbeddingClient
-from settings.paths import (
+from settings.runtime_config import (
     EMBEDDING_PROVIDER,
     EMBEDDING_MODEL,
-    EMBEDDING_DIMENSIONS,
+    EMBEDDING_DIMENSIONS
+)
+from settings.paths import (
     FRAUD_POLICY_DIR,
     POLICY_INDEX_DIR,
     POLICY_CHUNKS_JSON,

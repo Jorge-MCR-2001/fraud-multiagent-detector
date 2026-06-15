@@ -4,7 +4,7 @@ import numpy as np
 
 from openai import OpenAI, AzureOpenAI
 
-import settings.paths as settings
+import settings.runtime_config  as settings
 
 # Obtener configuracion para el pipeline
 def _get_setting(name: str, default=None):

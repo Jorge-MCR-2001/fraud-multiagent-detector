@@ -4,7 +4,10 @@ from typing import List, Dict, Any, Optional
 import numpy as np
 
 from rag.embedding_client import EmbeddingClient
+
 from settings.paths import POLICY_CHUNKS_JSON, POLICY_EMBEDDINGS_NPY
+from settings.runtime_config import RAG_PROVIDER
+
 from rag.rag_indexer import build_policy_index
 
 def retrieve_policy_context(
@@ -20,6 +23,15 @@ def retrieve_policy_context(
         - No genera decisiones
         - Solo recupera informacion
     """
+
+    if RAG_PROVIDER == "azure_ai_search":
+        from rag.azure_ai_search_retriever import retrieve_policy_context_from_azure_ai_search
+
+        return retrieve_policy_context_from_azure_ai_search(
+            signal_tags=signal_tags,
+            signals=signals,
+            transaction_context=transaction_context,
+        )
 
     # Analiza la existencia del vector store
     chunks, embeddings = _load_or_build_text()

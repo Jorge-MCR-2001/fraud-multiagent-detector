@@ -2,7 +2,7 @@ from typing import Optional
 
 from fastapi import FastAPI, HTTPException
 
-from settings.runtime_config import get_runtime_metadata
+from orchestrators.fraud_orchestrator import FraudOrchestrator
 
 from schemas.hitl_schema import (
     HITLQueueResponse,
@@ -18,12 +18,13 @@ from services.hitl_queue_service import (
 )
 from services.error_handler import build_error_response
 
-from orchestrators.fraud_orchestrator import FraudOrchestrator
 from settings.paths import (
-    LLM_ENABLED,
     POLICY_CHUNKS_JSON,
-    POLICY_EMBEDDINGS_NPY,
-    AUDIT_TRAIL_JSONL,
+    POLICY_EMBEDDINGS_NPY
+)
+from settings.runtime_config import (
+    LLM_ENABLED,
+    get_runtime_metadata
 )
 
 
@@ -43,17 +44,22 @@ def healt():
 
     runtime = get_runtime_metadata()
 
+    rag_enabled = (
+        POLICY_CHUNKS_JSON.exists()
+        and POLICY_EMBEDDINGS_NPY.exists()
+    )
+
     return {
         "status": "running",
         "level": "4",
         "architecture": "langgraph_multi_agent_cloud_ready",
-        "rag_enabled": True,
-        "llm_enabled": True,
+        "rag_enabled": rag_enabled,
+        "llm_enabled": LLM_ENABLED,
         "hitl_enabled": True,
         "audit_trail_enabled": True,
         "observability_enabled": True,
         "schema_validation_enabled": True,
-        "runtime": runtime
+        "runtime": runtime,
     }
 
 @app.get(
