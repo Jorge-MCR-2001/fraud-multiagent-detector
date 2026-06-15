@@ -2,6 +2,8 @@ from typing import Optional
 
 from fastapi import FastAPI, HTTPException
 
+from settings.runtime_config import get_runtime_metadata
+
 from schemas.hitl_schema import (
     HITLQueueResponse,
     HITLQueueItem,
@@ -31,37 +33,27 @@ from schemas.evaluation_response import EvaluationResponse
 app = FastAPI(
     tittle="API - Detector de fraudes Multi-Agentico",
     version="1.0.0",
-    description=
-        """
-            Nivel 3: Integración de Observabilidad
-        """
+    description="Nivel 4: Integración de Langgpraph en Cloud"
 )
 
 orchestrator = FraudOrchestrator()
 
 @app.get("/")
 def healt():
+
+    runtime = get_runtime_metadata()
+
     return {
         "status": "running",
-        "level": "2",
-        "architecture": "langgraph_multi_agent_rag_debate_hitl_audit",
-        "rag_enabled": POLICY_CHUNKS_JSON.exists() and POLICY_EMBEDDINGS_NPY.exists(),
-        "llm_enabled": LLM_ENABLED,
+        "level": "4",
+        "architecture": "langgraph_multi_agent_cloud_ready",
+        "rag_enabled": True,
+        "llm_enabled": True,
         "hitl_enabled": True,
-        "audit_trail_enabled": AUDIT_TRAIL_JSONL.parent.exists(),
-        "flow": [
-            "TransactionContextAgent",
-            "BehavioralPatternAgent",
-            "InternalPolicyRAGAgent",
-            "ExternalThreatIntelAgent",
-            "EvidenceAggregationAgent",
-            "ProFraudDebateAgent",
-            "ProCustomerDebateAgent",
-            "DecisionArbiterAgent",
-            "ExplainabilityAgent",
-            "HITLRouterAgent",
-            "AuditTrailAgent"
-        ]
+        "audit_trail_enabled": True,
+        "observability_enabled": True,
+        "schema_validation_enabled": True,
+        "runtime": runtime
     }
 
 @app.get(

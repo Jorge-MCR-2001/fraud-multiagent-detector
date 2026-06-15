@@ -1,0 +1,13 @@
+venvBackend/
+__pycache__/
+.pytest_cache/
+.env
+.git/
+.gitignore
+*.pyc
+*.pyo
+*.pyd
+
+data/audit/*.jsonl
+data/hitl/*.jsonl
+data/observability/*.jsonl

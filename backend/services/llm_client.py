@@ -1,38 +1,83 @@
 import json
 from typing import Dict, Any, List
 
-from openai import OpenAI
+from openai import OpenAI, AzureOpenAI
 
-from settings.paths import (
-    OPENAI_API_KEY,
-    LLM_ENABLED,
-    LLM_PROVIDER,
-    LLM_MODEL,
-    LLM_MAX_OUTPUT_TOKENS,
-    validate_llm_environment
-)
+import settings.paths as settings
 
+# Obtener configuracion para el pipeline
+def _get_setting(name: str, default=None):
+    return getattr(settings, name, default)
+
+# Verificar la condicion Boleana
+def _as_bool(value) -> bool:
+    if isinstance(value, bool):
+        return value
+
+    if value is None:
+        return False
+
+    return str(value).strip().lower() in ["1", "true", "yes", "y", "on"]
 
 class DebateLLMClient:
 
     """
         Cliente llm para debates:
-        * NOTAS:
-            - SOLO REDACCIÓN DE ARGUMENTOS
-            - NO TOMA DECISIONES
+        Responsabilidad:
+        - Redactar argumentos.
+        - No tomar decisiones.
+        - No modificar scores.
+        - No modificar suggested_decision.
+
+        Soporta:
+        - LLM_PROVIDER=openai
+        - LLM_PROVIDER=azure_openai
     """
 
     def __init__(self) -> None:
 
-        self.enabled = LLM_ENABLED
-        self.provider = LLM_PROVIDER
-        self.model = LLM_MODEL
+        self.enabled = _as_bool(_get_setting("LLM_ENABLED", False))
+        self.provider = str(
+            _get_setting("LLM_PROVIDER", "openai") or "openai"
+        ).lower()
 
-        if self.enabled:
-            validate_llm_environment()
-            self.client = OpenAI(api_key=OPENAI_API_KEY)
+        self.max_output_tokens = int(
+            _get_setting("LLM_MAX_OUTPUT_TOKENS", 220) or 220
+        )
+
+        self.client = None
+        self.model = None
+
+        if not self.enabled:
+            return
+        
+        if self.provider == "azure_openai":
+            self._validate_azure_config()
+
+            self.client = AzureOpenAI(
+                api_key=_get_setting("AZURE_OPENAI_API_KEY"),
+                azure_endpoint=_get_setting("AZURE_OPENAI_ENDPOINT"),
+                api_version=_get_setting(
+                    "AZURE_OPENAI_API_VERSION",
+                    "2024-02-15-preview"
+                ),
+            )
+
+            self.model = _get_setting("AZURE_OPENAI_DEPLOYMENT_NAME")
+
+        elif self.provider == "openai":
+            self._validate_openai_config()
+            
+            self.client = OpenAI(
+                api_key=_get_setting("OPENAI_API_KEY")
+            )
+
+            self.model = _get_setting("LLM_MODEL", "gpt-4.1-mini")
+
         else:
-            self.client = None
+            raise ValueError(
+                f"El provaider no esta soportado: {self.provider}"
+            )
 
     def generate_debate_argument(
         self,
@@ -118,10 +163,10 @@ class DebateLLMClient:
                     }
                 ],
                 temperature=0.2,
-                max_output_tokens=LLM_MAX_OUTPUT_TOKENS
+                max_output_tokens=self.max_output_tokens
             )
 
-            # Splitar la respuest
+            # Splitar la respuesta
             text = str(response.output_text or "").strip()
 
             # En caso de no obtener una respuesta generativa consiza recurrir a un texto fallback
@@ -164,3 +209,41 @@ class DebateLLMClient:
             f"{score_name}: {score_value}. "
             f"Decisión sugerida por el agente: {suggested_decision}."
         )
+    
+    # Validar configuracion de OPENAI
+    def _validate_openai_config(self) -> None:
+        missing = []
+
+        if not _get_setting("OPENAI_API_KEY"):
+            missing.append("OPENAI_API_KEY")
+
+        if not _get_setting("LLM_MODEL", "gpt-4.1-mini"):
+            missing.append("LLM_MODEL")
+
+        if missing:
+            raise ValueError(
+                "Faltan variables para LLM_PROVIDER=openai: "
+                + ", ".join(missing)
+            )
+
+    # Validar configuracion de AzureOpenAI
+    def _validate_azure_config(self) -> None:
+        missing = []
+
+        if not _get_setting("AZURE_OPENAI_ENDPOINT"):
+            missing.append("AZURE_OPENAI_ENDPOINT")
+
+        if not _get_setting("AZURE_OPENAI_API_KEY"):
+            missing.append("AZURE_OPENAI_API_KEY")
+
+        if not _get_setting("AZURE_OPENAI_API_VERSION", "2024-02-15-preview"):
+            missing.append("AZURE_OPENAI_API_VERSION")
+
+        if not _get_setting("AZURE_OPENAI_DEPLOYMENT_NAME"):
+            missing.append("AZURE_OPENAI_DEPLOYMENT_NAME")
+
+        if missing:
+            raise ValueError(
+                "Faltan variables para LLM_PROVIDER=azure_openai: "
+                + ", ".join(missing)
+            )

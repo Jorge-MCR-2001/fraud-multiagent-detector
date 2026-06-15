@@ -28,7 +28,7 @@ def test_root_endpoint_reports_level_3_ready_components():
     data = response.json()
 
     assert data["status"] == "running"
-    assert data["level"] in ["2", "3"]
+    assert data["level"] in ["2", "3", "4"]
     assert data["rag_enabled"] is True
     assert data["hitl_enabled"] is True
     assert data["audit_trail_enabled"] is True
