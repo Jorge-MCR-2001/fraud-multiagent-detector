@@ -362,3 +362,36 @@ docs/level_4_cloud_readiness.md
 - [x] Tests automatizados: 23 passed.
 - [x] Documentación de evolución.
 - [x] Script de evidencias.
+
+
+
+
+## Trazabilidad actual y escalabilidad hacia cloud
+
+La solución implementa trazabilidad funcional desde la ejecución local mediante archivos estructurados en formato JSONL. Esta trazabilidad permite registrar la ruta de agentes, señales detectadas, evidencias internas, evidencias externas, decisión final, explicación para auditoría y eventos asociados al flujo multi-agente.
+
+Actualmente, la trazabilidad se persiste localmente en:
+  - backend/data/audit/audit_trail.jsonl
+  - backend/data/observability/agent_events.jsonl
+  - backend/data/hitl/hitl_queue.jsonl
+
+Estos archivos permiten auditar el comportamiento del sistema durante la evaluación de transacciones y sirven como evidencia directa del proceso de decisión.
+
+Para esta entrega, la implementación cloud completa no se encuentra desplegada en servicios gestionados; sin embargo, la arquitectura fue preparada para escalar la traza actual hacia un entorno cloud-ready. El diseño contempla que los mismos eventos registrados localmente puedan ser redirigidos posteriormente hacia servicios gestionados como:
+
+  - Azure Cosmos DB para persistencia de audit trail, HITL queue y eventos transaccionales.
+  - Azure Application Insights para observabilidad, métricas, trazas y diagnóstico operativo.
+  - Azure Log Analytics para análisis centralizado de logs.
+  - Azure Key Vault para gestión segura de secretos.
+  - Azure AI Search para trazabilidad de recuperación RAG y consultas de políticas internas.
+
+La separación mediante providers configurables permite mantener el mismo contrato lógico de trazabilidad, independientemente de si la ejecución ocurre en modo local o en infraestructura cloud. De esta manera, la solución actual no simula una traza aislada, sino que establece una base auditable y extensible para una futura fase de implementación cloud.
+
+En términos de evolución, la traza local actual puede escalarse de la siguiente forma:
+
+Local JSONL
+  - Audit Trail Provider
+  - Cosmos DB / Log Analytics / Application Insights
+  - Dashboard operativo / monitoreo / auditoría cloud
+
+Esta aproximación permite validar primero el flujo multi-agente, el modelo de decisión y la trazabilidad funcional antes de migrar la persistencia y observabilidad a servicios gestionados.
