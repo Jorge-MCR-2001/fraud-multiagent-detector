@@ -1,15 +1,22 @@
 from typing import Dict, Any, List
 
 from agents.base_agent import BaseAgent
+from services.llm_client import DebateLLMClient
 
 class ProFraudDebateAgent(BaseAgent):
 
     """
         Responsabilidad: Argumentar por qué la transacción podría ser fraude.
+        - Calcular score_risk de forma deterministica
+        - Calcular suggested_decision de forma deterministica
+        - Generar el argumento a base de un LLM
     """
 
     # Asignar nombre al Agente
     name: str = "ProFraudDebateAgent"
+
+    def __init__(self):
+        self.llm_client = DebateLLMClient()
 
     def run(self, state: Dict[str, Any]) -> Dict[str, Any]:
 
@@ -38,7 +45,9 @@ class ProFraudDebateAgent(BaseAgent):
                     "position": argument.get("position"),
                     "risk_score": argument.get("risk_score"),
                     "arguments_count": len(argument.get("arguments", [])), # Cantidad de argumentos
-                    "suggested_decision": argument.get("suggested_decision") # Decision sugerida
+                    "suggested_decision": argument.get("suggested_decision"), # Decision sugerida
+                    "llm_used": argument.get("llm_used"),
+                    "llm_error": argument.get("llm_error")
                 }
             )
 
@@ -61,7 +70,6 @@ class ProFraudDebateAgent(BaseAgent):
         internal_evidence = evidence_bundle.get("internal_evidence", {})
         rag_evidence = evidence_bundle.get("rag_evidence", {})
         external_evidence = evidence_bundle.get("external_evidence", {})
-        policy_evaluation = evidence_bundle.get("policy_evaluation", {})
         risk_summary = evidence_bundle.get("risk_summary", {})
 
         signal_tags = internal_evidence.get("signal_tags", [])
@@ -132,9 +140,29 @@ class ProFraudDebateAgent(BaseAgent):
             risk_score=risk_score
         )
 
+        # Genera el argumento por llm
+        llm_result = self.llm_client.generate_debate_argument(
+            role_name="ProFraudDebateAgent",
+            position="SUSPECTED_FRAUD",
+            deterministic_arguments=arguments,
+            evidence_payload={
+                "signal_tags": signal_tags,
+                "signals": signals,
+                "external_signals": external_signals,
+                "retrieved_policy_ids": retrieved_policy_ids,
+                "risk_summary": risk_summary
+            },
+            score_name="risk_score",
+            score_value=risk_score,
+            suggested_decision=suggested_decision
+        )
+
         return {
             "position": "SUSPECTED_FRAUD",
             "arguments": arguments,
+            "llm_argument": llm_result.get("text"),
+            "llm_used": llm_result.get("used"),
+            "llm_error": llm_result.get("error"),
             "risk_score": risk_score,
             "suggested_decision": suggested_decision,
             "supporting_signals": signals,

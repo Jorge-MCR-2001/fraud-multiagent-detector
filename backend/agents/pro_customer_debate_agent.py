@@ -1,15 +1,22 @@
 from typing import Dict, Any, List
 
 from agents.base_agent import BaseAgent
+from services.llm_client import DebateLLMClient
 
 class ProCustomerDebateAgent(BaseAgent):
 
     """
         Responsabilidad: Argumentar por qué la transacción podría ser legitima.
+        - Calcular customer_trust_score de forma determinística.
+        - Calcular suggested_decision de forma determinística.
+        - Generar el argumento a base de un LLM
     """
 
     # Asignar el nombre al Agente
     name: str = "ProCustomerDebateAgent"
+
+    def __init__(self) -> None:
+        self.llm_client = DebateLLMClient()
     
     def run(self, state: Dict[str, Any]) -> Dict[str, Any]:
 
@@ -38,7 +45,9 @@ class ProCustomerDebateAgent(BaseAgent):
                     "position": argument.get("position"),
                     "customer_trust_score": argument.get("customer_trust_score"),
                     "arguments_count": len(argument.get("arguments", [])), # Cantidad de argumentos
-                    "suggested_decision": argument.get("suggested_decision") # Decision sugerida
+                    "suggested_decision": argument.get("suggested_decision"), # Decision sugerida
+                    "llm_used": argument.get("llm_used"),
+                    "llm_error": argument.get("llm_error")
                 }
             )
 
@@ -141,9 +150,31 @@ class ProCustomerDebateAgent(BaseAgent):
             customer_trust_score=customer_trust_score
         )
 
+        llm_result = self.llm_client.generate_debate_argument(
+            role_name="ProCustomerDebateAgent",
+            position="POSSIBLY_LEGITIMATE",
+            deterministic_arguments=arguments,
+            evidence_payload={
+                "transaction_country": transaction_country,
+                "usual_countries": usual_countries,
+                "transaction_device": transaction_device,
+                "usual_devices": usual_devices,
+                "transaction_channel": transaction_channel,
+                "signal_tags": signal_tags,
+                "signals": signals,
+                "external_signals": external_signals
+            },
+            score_name="customer_trust_score",
+            score_value=customer_trust_score,
+            suggested_decision=suggested_decision
+        )
+
         return {
             "position": "POSSIBLY_LEGITIMATE",
             "arguments": arguments,
+            "llm_argument": llm_result.get("text"),
+            "llm_used": llm_result.get("used"),
+            "llm_error": llm_result.get("error"),
             "customer_trust_score": customer_trust_score,
             "suggested_decision": suggested_decision,
             "countered_signals": signals,

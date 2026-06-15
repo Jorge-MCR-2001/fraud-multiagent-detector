@@ -104,3 +104,47 @@ def validate_embedding_environment() -> None:
             f"Proveedor de embeddings no soportado: {EMBEDDING_PROVIDER}"
         )
     
+
+# ------------------------------------- Configuración LLM para agentes de debate -------------------------------------
+
+LLM_ENABLED_RAW = os.getenv("LLM_ENABLED", "false").strip().lower()
+
+LLM_ENABLED = LLM_ENABLED_RAW in {
+    "1",
+    "true",
+    "yes",
+    "y",
+    "on"
+}
+
+LLM_PROVIDER = os.getenv("LLM_PROVIDER", "openai").strip().lower()
+
+LLM_MODEL = os.getenv("LLM_MODEL", "gpt-4.1-mini").strip()
+
+LLM_MAX_OUTPUT_TOKENS_RAW = os.getenv("LLM_MAX_OUTPUT_TOKENS","220").strip()
+
+LLM_MAX_OUTPUT_TOKENS = (
+    int(LLM_MAX_OUTPUT_TOKENS_RAW)
+    if LLM_MAX_OUTPUT_TOKENS_RAW
+    else 220
+)
+
+def validate_llm_environment() -> None:
+    """
+        Valida la configuración de credenciales para agentes con LLM.
+        Si LLM_ENABLED=false, no obliga a tener API key.
+    """
+
+    if not LLM_ENABLED:
+        return
+
+    if LLM_PROVIDER == "openai":
+        if not OPENAI_API_KEY:
+            raise ValueError(
+                "OPENAI_API_KEY no está configurado y LLM_ENABLED=true"
+            )
+
+    else:
+        raise ValueError(
+            f"Proveedor LLM no soportado: {LLM_PROVIDER}"
+        )
