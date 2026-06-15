@@ -276,3 +276,74 @@ def test_confidence_scoring_is_formalized():
         assert "direction" in factor
         assert "description" in factor
         assert "evidence" in factor
+
+def test_agent_events_observability_file_is_written():
+    response = client.get("/evaluate/T-1007")
+    assert response.status_code == 200
+
+    agent_events_file = Path("data/observability/agent_events.jsonl")
+    assert agent_events_file.exists()
+
+    lines = agent_events_file.read_text(encoding="utf-8").strip().splitlines()
+    assert len(lines) > 0
+
+    last_event = json.loads(lines[-1])
+
+    assert "event_id" in last_event
+    assert "transaction_id" in last_event
+    assert "agent" in last_event
+    assert "status" in last_event
+    assert "details" in last_event
+    assert "created_at" in last_event
+
+    assert last_event["transaction_id"] == "T-1007"
+
+def test_unknown_transaction_returns_controlled_error():
+    response = client.get("/evaluate/T-9999")
+
+    assert response.status_code == 404
+
+    data = response.json()
+    detail = data["detail"]
+
+    assert detail["status"] == "error"
+    assert detail["error_code"] == "TRANSACTION_NOT_FOUND"
+    assert "trace_id" in detail
+    assert detail["details"]["transaction_id"] == "T-9999"
+
+
+def test_unknown_hitl_item_returns_controlled_error():
+    response = client.get("/hitl/queue/HITL-NOT-FOUND")
+
+    assert response.status_code == 404
+
+    data = response.json()
+    detail = data["detail"]
+
+    assert detail["status"] == "error"
+    assert detail["error_code"] == "HITL_ITEM_NOT_FOUND"
+    assert "trace_id" in detail
+    assert detail["details"]["hitl_queue_id"] == "HITL-NOT-FOUND"
+
+
+def test_resolve_unknown_hitl_item_returns_controlled_error():
+    payload = {
+        "reviewer": "analyst_01",
+        "resolution": "APPROVE",
+        "notes": "Intento de resolución para item inexistente."
+    }
+
+    response = client.post(
+        "/hitl/queue/HITL-NOT-FOUND/resolve",
+        json=payload,
+    )
+
+    assert response.status_code == 404
+
+    data = response.json()
+    detail = data["detail"]
+
+    assert detail["status"] == "error"
+    assert detail["error_code"] == "HITL_ITEM_NOT_FOUND"
+    assert "trace_id" in detail
+    assert detail["details"]["hitl_queue_id"] == "HITL-NOT-FOUND"

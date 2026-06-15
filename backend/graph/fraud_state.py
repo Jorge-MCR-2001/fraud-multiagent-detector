@@ -74,5 +74,6 @@ class FraudEvaluationState(TypedDict, total = False):
     confidence_level: Optional[str]
     confidence_factors: List[Dict[str, Any]]
 
-    # Manejo de Errores
+    # Observabilidad de errores
+    observability_errors: List[Dict[str, Any]]
     errors: List[Dict[str, Any]]

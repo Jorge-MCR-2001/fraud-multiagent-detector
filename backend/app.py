@@ -14,6 +14,7 @@ from services.hitl_queue_service import (
     get_hitl_item,
     resolve_hitl_item,
 )
+from services.error_handler import build_error_response
 
 from orchestrators.fraud_orchestrator import FraudOrchestrator
 from settings.paths import (
@@ -63,9 +64,59 @@ def healt():
         ]
     }
 
-@app.get("/evaluate/{transaction_id}", response_model=EvaluationResponse)
+@app.get(
+        "/evaluate/{transaction_id}",
+        response_model=EvaluationResponse,
+        responses={
+            404: {
+                "description": "Transction not found"
+            },
+            500: {
+                "description": "Interval evaluation error"
+            },
+        },
+    )
 def evaluate_transaction(transaction_id: str):
-    return orchestrator.evaluate(transaction_id)
+    try:
+        result = orchestrator.evaluate(transaction_id)
+
+        if not result:
+            raise HTTPException(
+                status_code=404,
+                detail=build_error_response(
+                    error_code="TRANSACTION_NOT_FOUND",
+                    message=f"Transaction {transaction_id} was not found.",
+                    details={"transaction_id": transaction_id},
+                )
+            )
+        
+        if result.get("decision") is None:
+            raise HTTPException(
+                status_code=404,
+                detail=build_error_response(
+                    error_code="TRANSACTION_NOT_FOUND",
+                    message=f"Transaction {transaction_id} was not found.",
+                    details={"transaction_id": transaction_id},
+                ),
+            )
+
+        return result
+
+    except HTTPException:
+        raise
+
+    except Exception as exc:
+        raise HTTPException(
+            status_code=500,
+            detail=build_error_response(
+                error_code="EVALUATION_FAILED",
+                message="Fraud evaluation failed unexpectedly.",
+                details={
+                    "transaction_id": transaction_id,
+                    "error": str(exc),
+                },
+            ),
+        )
 
 
 @app.get("/hitl/queue", response_model=HITLQueueResponse)
@@ -84,7 +135,11 @@ def get_hitl_queue_item(hitl_queue_id: str):
     if item is None:
         raise HTTPException(
             status_code=404,
-            detail=f"HITL item not found: {hitl_queue_id}",
+            detail=build_error_response(
+                error_code="HITL_ITEM_NOT_FOUND",
+                message=f"HITL item not found: {hitl_queue_id}",
+                details={"hitl_queue_id": hitl_queue_id},
+            ),
         )
 
     return item
@@ -108,5 +163,9 @@ def resolve_hitl_queue_item(hitl_queue_id: str, request: HITLResolveRequest):
     except ValueError as exc:
         raise HTTPException(
             status_code=404,
-            detail=str(exc),
+            detail=build_error_response(
+                error_code="HITL_ITEM_NOT_FOUND",
+                message=str(exc),
+                details={"hitl_queue_id": hitl_queue_id},
+            ),
         )

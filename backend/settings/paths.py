@@ -22,6 +22,8 @@ AUDIT_TRAIL_JSONL = AUDIT_DIR / "audit_trail.jsonl"
 HITL_DIR = DATA_DIR / "hitl"
 HITL_QUEUE_JSONL = HITL_DIR / "hitl_queue.jsonl"
 
+OBSERVABILITY_DIR = DATA_DIR / "observability"
+AGENT_EVENTS_JSONL = OBSERVABILITY_DIR / "agent_events.jsonl"
 
 # ------------------------------------- Ruta a Resources -------------------------------------
 RESOURCES_DIR = BACKEND_DIR / "resources"
