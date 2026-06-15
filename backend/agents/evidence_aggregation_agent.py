@@ -68,14 +68,6 @@ class EvidenceAggregationAgent(BaseAgent):
                     "external_citations_count": len(citations_external or [])
                 },
 
-                "external_evidence": {
-                    "external_signals": external_signals,
-                    "citations_external": citations_external,
-                    "external_threat_context": external_threat_context,
-                    "external_signals_count": len(external_signals or []),
-                    "external_citations_count": len(citations_external or [])
-                },
-
                 "risk_summary": {
                     "total_internal_signals": len(signal_tags or []),
                     "total_external_signals": len(external_signals or []),

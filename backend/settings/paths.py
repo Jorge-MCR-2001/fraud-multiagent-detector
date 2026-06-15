@@ -6,7 +6,8 @@ import os
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 
 BACKEND_DIR = PROJECT_ROOT / "backend"
-load_dotenv(find_dotenv())
+ENV_DIR = BACKEND_DIR / ".env"
+load_dotenv(ENV_DIR)
 
 # ------------------------------------- Ruta a DATA -------------------------------------
 DATA_DIR = BACKEND_DIR / "data"

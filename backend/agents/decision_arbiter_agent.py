@@ -210,13 +210,31 @@ class DecisionArbiterAgent(BaseAgent):
             contradiction_detected=contradiction_detected,
         )
 
+        decision_basis = self._build_decision_basis(
+            basis=basis,
+            decision=decision,
+            confidence=confidence,
+            signal_tags=signal_tags,
+            signals=signals,
+            rag_policy_ids=rag_policy_ids,
+            citations_internal=citations_internal,
+            external_signals=external_signals,
+            citations_external=citations_external,
+            pro_fraud_score=pro_fraud_score,
+            customer_trust_score=customer_trust_score,
+            pro_fraud_suggestion=pro_fraud_suggestion,
+            pro_customer_suggestion=pro_customer_suggestion,
+            contradiction_detected=contradiction_detected,
+            requires_human_review=requires_human_review,
+        )
+
         return {
             "decision": decision,
             "confidence": round(confidence, 2),
             "decision_rationale": decision_rationale,
             "requires_human_review": requires_human_review,
             "decision_trace": decision_trace,
-            "decision_basis": basis,
+            "decision_basis": decision_basis,
         }
     
 
@@ -415,6 +433,100 @@ class DecisionArbiterAgent(BaseAgent):
                 "value": requires_human_review
             }
         ]
+
+    def _build_decision_basis(
+        self,
+        basis: str,
+        decision: str,
+        confidence: float,
+        signal_tags: List[str],
+        signals: List[str],
+        rag_policy_ids: List[str],
+        citations_internal: List[Dict[str, Any]],
+        external_signals: List[str],
+        citations_external: List[Dict[str, Any]],
+        pro_fraud_score: float,
+        customer_trust_score: float,
+        pro_fraud_suggestion: Optional[str],
+        pro_customer_suggestion: Optional[str],
+        contradiction_detected: bool,
+        requires_human_review: bool,
+    ) -> Dict[str, Any]:
+        
+        """
+            Construye una base estructurada de decisión.
+        """
+
+        return {
+            "basis_type": basis,
+            "decision": decision,
+            "confidence": round(confidence, 2),
+            "requires_human_review": requires_human_review,
+
+            "internal_signals": {
+                "signal_count": len(signal_tags or []),
+                "signal_tags": signal_tags or [],
+                "signals": signals or [],
+            },
+
+            "internal_policy_evidence": {
+                "rag_policy_ids": rag_policy_ids or [],
+                "citations_internal": citations_internal or [],
+            },
+
+            "external_threat_evidence": {
+                "has_external_evidence": bool(external_signals or citations_external),
+                "external_signals": external_signals or [],
+                "citations_external": citations_external or [],
+            },
+
+            "debate_summary": {
+                "pro_fraud_score": pro_fraud_score,
+                "pro_fraud_suggestion": pro_fraud_suggestion,
+                "customer_trust_score": customer_trust_score,
+                "pro_customer_suggestion": pro_customer_suggestion,
+                "contradiction_detected": contradiction_detected,
+            },
+
+            "applied_rule": {
+                "rule_code": basis,
+                "rule_description": self._describe_basis(basis),
+            },
+        }
+
+    def _describe_basis(self, basis: str) -> str:
+        """
+            Traduce el código interno de decisión a una descripción auditable.
+        """
+
+        descriptions = {
+            "no_risk_signals": (
+                "No se identificaron señales internas de riesgo ni evidencia externa relevante."
+            ),
+            "critical_evidence_combination": (
+                "Se detectó una combinación crítica de múltiples señales internas y evidencia externa o score Pro-Fraud alto."
+            ),
+            "policy_fp02_or_geo_device_risk": (
+                "Se recuperó FP-02 o se detectó combinación de país/dispositivo nuevo que requiere revisión humana."
+            ),
+            "policy_fp01_or_amount_time_risk": (
+                "Se recuperó FP-01 o se detectó combinación de monto fuera de rango y horario no habitual."
+            ),
+            "contradictory_agent_arguments": (
+                "Se detectó contradicción relevante entre los argumentos Pro-Fraud y Pro-Customer."
+            ),
+            "moderate_pro_fraud_score": (
+                "El score Pro-Fraud indica riesgo medio que requiere challenge."
+            ),
+            "fallback_low_risk": (
+                "No se alcanzaron condiciones de riesgo suficientes; se aplica aprobación por bajo riesgo."
+            ),
+        }
+
+        return descriptions.get(
+            basis,
+            "Criterio de decisión no catalogado."
+        )
 
     def _extract_policy_ids(self, items: List[Dict[str, Any]]) -> List[str]:
 

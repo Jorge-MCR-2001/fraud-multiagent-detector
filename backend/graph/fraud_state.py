@@ -44,7 +44,7 @@ class FraudEvaluationState(TypedDict, total = False):
     # Decisiones finales: Accion / Confianza
     decision: Optional[str]
     confidence: Optional[float]
-    decision_basis: Optional[str]
+    decision_basis: Dict[str, Any]
 
     # Trazabilidad de Decision / agentes ejecutados
     decision_trace: List[Dict[str, Any]]
