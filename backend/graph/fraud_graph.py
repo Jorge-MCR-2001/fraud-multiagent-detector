@@ -10,6 +10,9 @@ from agents.evidence_aggregation_agent import EvidenceAggregationAgent
 from agents.pro_fraud_debate_agent import ProFraudDebateAgent
 from agents.pro_customer_debate_agent import ProCustomerDebateAgent
 from agents.decision_arbiter_agent import DecisionArbiterAgent
+from agents.explainability_agent import ExplainabilityAgent
+from agents.hitl_router_agent import HITLRouterAgent
+from agents.audit_trail_agent import AuditTrailAgent
 
 def build_fraud_graph(): # Construccion del grafo multiagentico
 
@@ -25,6 +28,9 @@ def build_fraud_graph(): # Construccion del grafo multiagentico
     pro_fraud_debate_agent = ProFraudDebateAgent()
     pro_customer_debate_agent = ProCustomerDebateAgent()
     decision_arbiter_agent = DecisionArbiterAgent()
+    explainability_agent = ExplainabilityAgent()
+    hitl_router_agent = HITLRouterAgent()
+    audit_trail_agent = AuditTrailAgent()
 
     # Registrar nodos en el grafo
     builder.add_node("transaction_context",transaction_context_agent.run)
@@ -35,6 +41,9 @@ def build_fraud_graph(): # Construccion del grafo multiagentico
     builder.add_node("pro_fraud_debate",pro_fraud_debate_agent.run)
     builder.add_node("pro_customer_debate",pro_customer_debate_agent.run)
     builder.add_node("decision_arbiter",decision_arbiter_agent.run)
+    builder.add_node("explainability", explainability_agent.run)
+    builder.add_node("hitl_router", hitl_router_agent.run)
+    builder.add_node("audit_trail", audit_trail_agent.run)
 
     # Definir el flujo secuencial
     builder.add_edge(START,"transaction_context")
@@ -45,7 +54,10 @@ def build_fraud_graph(): # Construccion del grafo multiagentico
     builder.add_edge("evidence_aggregation", "pro_fraud_debate")
     builder.add_edge("pro_fraud_debate", "pro_customer_debate")
     builder.add_edge("pro_customer_debate", "decision_arbiter")
-    builder.add_edge("decision_arbiter", END)
+    builder.add_edge("decision_arbiter", "explainability")
+    builder.add_edge("explainability", "hitl_router")
+    builder.add_edge("hitl_router", "audit_trail")
+    builder.add_edge("audit_trail", END)
 
     # Compilar el grafo
     return builder.compile()

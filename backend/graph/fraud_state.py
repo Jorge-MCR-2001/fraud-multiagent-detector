@@ -44,6 +44,7 @@ class FraudEvaluationState(TypedDict, total = False):
     # Decisiones finales: Accion / Confianza
     decision: Optional[str]
     confidence: Optional[float]
+    decision_basis: Optional[str]
 
     # Trazabilidad de Decision / agentes ejecutados
     decision_trace: List[Dict[str, Any]]
@@ -52,6 +53,20 @@ class FraudEvaluationState(TypedDict, total = False):
     # Estados para Agente de desicion y revision de un Humano
     decision_rationale: Optional[str]
     requires_human_review: Optional[bool]
+
+    # Estados para explicacion: Cliente/Auditoria
+    explanation_customer: Optional[str]
+    explanation_audit: Optional[str]
+
+    # HITL
+    hitl_required: Optional[bool]
+    hitl_reason: Optional[str]
+    hitl_queue_item: Dict[str, Any]
+
+    # Audit
+    audit_saved: Optional[bool]
+    audit_event_id: Optional[str]
+    audit_file: Optional[str]
 
     # Manejo de Errores
     errors: List[Dict[str, Any]]

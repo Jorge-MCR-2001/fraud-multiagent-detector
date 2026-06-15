@@ -162,7 +162,7 @@ class ProFraudDebateAgent(BaseAgent):
             score += min(len(external_signals) * 0.10, 0.25)
 
         # Solo RAG interno ---> se añade un factor por identificación de politica por inferencia semantica
-        elif retrieved_policy_ids: 
+        if retrieved_policy_ids: 
             score += 0.15
 
         # Evidencia fuerte adicional --> opcional

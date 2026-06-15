@@ -97,3 +97,8 @@ def validate_embedding_environment() -> None:
         raise ValueError(
             f"Proveedor de embeddings no soportado: {EMBEDDING_PROVIDER}"
         )
+    
+# ------------------------------------- Doc. de auditoria -------------------------------------
+
+AUDIT_DIR = BACKEND_DIR / "audit"
+AUDIT_TRAIL_JSONL = AUDIT_DIR / "audit_trail.jsonl"

@@ -208,14 +208,22 @@ class ProCustomerDebateAgent(BaseAgent):
         signal_count = len(signal_tags or [])
         has_external = bool(external_signals)
 
+        # País inusual + dispositivo desconocido sí requiere humano
+        if "signal_c" in signal_tags and "signal_d" in signal_tags:
+            return "ESCALATE_TO_HUMAN"
+
+        # Muchas señales internas + evidencia externa
+        if signal_count >= 3 and has_external:
+            return "ESCALATE_TO_HUMAN"
+
+        # Cliente confiable, bajo riesgo y sin alertas externas
         if customer_trust_score >= 0.75 and signal_count <= 1 and not has_external:
             return "APPROVE"
 
-        if customer_trust_score >= 0.55 and signal_count <= 2:
+        # Caso típico FP-01: monto + horario
+        # Se valida con CHALLENGE, no con humano.
+        if signal_count <= 2:
             return "CHALLENGE"
-
-        if has_external or signal_count >= 3:
-            return "ESCALATE_TO_HUMAN"
 
         return "CHALLENGE"
     

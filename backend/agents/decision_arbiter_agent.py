@@ -54,6 +54,7 @@ class DecisionArbiterAgent(BaseAgent):
 
             state["decision"] = decision_result["decision"]
             state["confidence"] = decision_result["confidence"]
+            state["decision_basis"] = decision_result["decision_basis"]
             state["decision_rationale"] = decision_result["decision_rationale"]
             state["requires_human_review"] = decision_result["requires_human_review"]
             state["decision_trace"] = decision_result["decision_trace"]
@@ -147,23 +148,24 @@ class DecisionArbiterAgent(BaseAgent):
             basis = "policy_fp02_or_geo_device_risk"
             requires_human_review = True
 
-        # Regla 4: Contradicción fuerte => ESCALATE_TO_HUMAN
-        elif contradiction_detected and signal_count >= 2:
-            decision = "ESCALATE_TO_HUMAN"
-            confidence = 0.55
-            basis = "contradictory_agent_arguments"
-            requires_human_review = True
-
-        # Regla 5: FP-01 o monto/horario => CHALLENGE
+        # Regla 4: FP-01 o monto/horario => CHALLENGE
         elif has_fp01 or ("signal_a" in signal_tags and "signal_b" in signal_tags):
             decision = "CHALLENGE"
             confidence = self._challenge_confidence(
                 has_external_evidence=has_external_evidence,
+                has_high_external_risk=has_high_external_risk,
                 pro_fraud_score=pro_fraud_score,
                 customer_trust_score=customer_trust_score,
             )
             basis = "policy_fp01_or_amount_time_risk"
             requires_human_review = False
+
+        # Regla 5: Contradicción fuerte => ESCALATE_TO_HUMAN
+        elif contradiction_detected and signal_count >= 2:
+            decision = "ESCALATE_TO_HUMAN"
+            confidence = 0.55
+            basis = "contradictory_agent_arguments"
+            requires_human_review = True
 
         # Regla 6: Riesgo medio por score Pro-Fraud => CHALLENGE
         elif pro_fraud_score >= 0.45:
@@ -218,7 +220,7 @@ class DecisionArbiterAgent(BaseAgent):
         }
     
 
-    def _challenge_confidence(self, has_external_evidence: bool, pro_fraud_score: float, customer_trust_score: float) -> float:
+    def _challenge_confidence(self, has_external_evidence: bool, has_high_external_risk: bool, pro_fraud_score: float, customer_trust_score: float) -> float:
         """
             Confidence para CHALLENGE.
             - CHALLENGE suele estar alrededor de 0.65. (se ajusta levemente según evidencia externa y debate.)
@@ -227,16 +229,16 @@ class DecisionArbiterAgent(BaseAgent):
         # Confidence incial
         confidence = 0.65
 
-        if has_external_evidence:
+        if has_high_external_risk:
+            confidence += 0.10
+
+        elif has_external_evidence and pro_fraud_score >= 0.85:
             confidence += 0.05
 
-        if pro_fraud_score >= 0.70:
-            confidence += 0.05
-
-        if customer_trust_score >= 0.65:
+        if customer_trust_score >= 0.75:
             confidence -= 0.05
 
-        return max(0.50, min(confidence, 0.80))
+        return round(max(0.50, min(confidence, 0.80)), 2)
     
     
     def _has_high_external_risk(self, citations_external: List[Dict[str, Any]]) -> bool:
@@ -261,17 +263,27 @@ class DecisionArbiterAgent(BaseAgent):
             Detecta contradicción si ambos lados tienen argumentos fuertes o si sugieren decisiones claramente diferentes.
         """
 
-        fraud_strong = pro_fraud_score >= 0.70
-        customer_strong = customer_trust_score >= 0.65
+        fraud_strong = pro_fraud_score >= 0.85
+        customer_strong = customer_trust_score >= 0.75
 
         # Logica boleana de contradicciones fuertes
-        suggestions_conflict = (
-            pro_fraud_suggestion
-            and pro_customer_suggestion
-            and pro_fraud_suggestion != pro_customer_suggestion
+        severe_block_vs_customer = (
+            pro_fraud_suggestion == "BLOCK"
+            and pro_customer_suggestion in ["APPROVE", "CHALLENGE"]
         )
 
-        return bool((fraud_strong and customer_strong) or suggestions_conflict)
+        severe_escalate_vs_approve = (
+            pro_fraud_suggestion == "ESCALATE_TO_HUMAN"
+            and pro_customer_suggestion == "APPROVE"
+        )
+
+        both_sides_strong = fraud_strong and customer_strong
+
+        return bool(
+            severe_block_vs_customer
+            or severe_escalate_vs_approve
+            or both_sides_strong
+        )
     
     def _build_decision_rationale(
         self,
