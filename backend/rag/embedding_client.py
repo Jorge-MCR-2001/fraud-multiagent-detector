@@ -62,7 +62,7 @@ class EmbeddingClient:
             )
 
         # Configuración con OPENAI
-        if self.provider == "openai":
+        elif self.provider == "openai":
 
             self._validate_openai_config()
 
@@ -105,10 +105,7 @@ class EmbeddingClient:
             response = self.client.embeddings.create(**request_payload)
 
         except Exception: # Algunos deployments de Azure OpenAI pueden no aceptar dimensions.
-            if (
-                self.provider == "azure_openai"
-                and "dimensions" in request_payload
-            ):
+            if (self.provider == "azure_openai" and "dimensions" in request_payload):
                 request_payload.pop("dimensions", None)
                 response = self.client.embeddings.create(**request_payload)
             else:

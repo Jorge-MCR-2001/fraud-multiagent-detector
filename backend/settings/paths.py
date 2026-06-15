@@ -155,6 +155,12 @@ def validate_embedding_environment() -> None:
         if not AZURE_OPENAI_EMBEDDING_DEPLOYMENT:
             missing.append("AZURE_OPENAI_EMBEDDING_DEPLOYMENT")
 
+        if not AZURE_OPENAI_EMBEDDING_DEPLOYMENT_RESOLVED:
+            missing.append(
+                "AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME"
+                "or AZURE_OPENAI_EMBEDDING_DEPLOYMENT"
+            )
+
         if missing:
             raise ValueError(
                 "Faltan variables de entorno para Azure OpenAI: "
