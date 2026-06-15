@@ -200,3 +200,15 @@ Detector de Fraudes Multi Agentico - Nivel 04
     - agent_events.jsonl registra eventos por agente
     - Los errores principales tienen respuesta controlada
     - La documentacion permite levantar y probar el proyecto desde cero
+
+-> Estado de trazabilidad cloud
+
+La trazabilidad cloud no se encuentra desplegada en esta versión. La implementación actual registra audit trail, eventos de agentes y cola HITL en archivos JSONL locales. Esta decisión permite validar el contrato de trazabilidad y la estructura de eventos antes de conectarla a servicios cloud.
+
+La evolución prevista consiste en reemplazar los providers locales por providers cloud sin modificar el flujo multi-agente principal:
+
+- `local_jsonl` → `azure_cosmos`
+- `local_jsonl observability` → `application_insights`
+- `local_vectorstore` → `azure_ai_search`
+
+Por tanto, la solución actual es cloud-ready a nivel de arquitectura, configuración y contrato de eventos, aunque la persistencia cloud gestionada queda como fase posterior de despliegue.
