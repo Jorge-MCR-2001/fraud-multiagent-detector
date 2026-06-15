@@ -54,9 +54,11 @@ def build_response(final_state:Dict[str, Any]) -> Dict[str, Any]: # Constructor 
         "hitl_reason": final_state.get("hitl_reason"),
         "hitl_queue_item": final_state.get("hitl_queue_item", {}), # Asegura una lista valida
 
-        "audit_saved": final_state.get("audit_saved"),
+        "audit_saved": final_state.get("audit_saved", False), # Asegurar que hay una auditoria salvada
         "audit_event_id": final_state.get("audit_event_id"),
-        "audit_file": final_state.get("audit_file"),
+
+        "confidence_level": final_state.get("confidence_level", "LOW"),
+        "confidence_factors": final_state.get("confidence_factors", []),
 
         "agent_trace": final_state.get("agent_trace", []), # Asegura una lista valida
         "decision_trace": final_state.get("decision_trace", []), # Asegura una lista valida

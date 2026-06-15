@@ -1,4 +1,19 @@
-from fastapi import FastAPI
+from typing import Optional
+
+from fastapi import FastAPI, HTTPException
+
+from schemas.hitl_schema import (
+    HITLQueueResponse,
+    HITLQueueItem,
+    HITLResolveRequest,
+    HITLResolveResponse,
+)
+
+from services.hitl_queue_service import (
+    list_hitl_queue,
+    get_hitl_item,
+    resolve_hitl_item,
+)
 
 from orchestrators.fraud_orchestrator import FraudOrchestrator
 from settings.paths import (
@@ -51,3 +66,47 @@ def healt():
 @app.get("/evaluate/{transaction_id}", response_model=EvaluationResponse)
 def evaluate_transaction(transaction_id: str):
     return orchestrator.evaluate(transaction_id)
+
+
+@app.get("/hitl/queue", response_model=HITLQueueResponse)
+def get_hitl_queue(status: Optional[str] = "PENDING_REVIEW"):
+    items = list_hitl_queue(status=status)
+
+    return {
+        "item_count": len(items),
+        "items": items,
+    }
+
+@app.get("/hitl/queue/{hitl_queue_id}", response_model=HITLQueueItem)
+def get_hitl_queue_item(hitl_queue_id: str):
+    item = get_hitl_item(hitl_queue_id)
+
+    if item is None:
+        raise HTTPException(
+            status_code=404,
+            detail=f"HITL item not found: {hitl_queue_id}",
+        )
+
+    return item
+
+
+@app.post("/hitl/queue/{hitl_queue_id}/resolve", response_model=HITLResolveResponse)
+def resolve_hitl_queue_item(hitl_queue_id: str, request: HITLResolveRequest):
+    try:
+        item = resolve_hitl_item(
+            hitl_queue_id=hitl_queue_id,
+            reviewer=request.reviewer,
+            resolution=request.resolution,
+            notes=request.notes,
+        )
+
+        return {
+            "resolved": True,
+            "item": item,
+        }
+
+    except ValueError as exc:
+        raise HTTPException(
+            status_code=404,
+            detail=str(exc),
+        )

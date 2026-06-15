@@ -8,6 +8,12 @@ DecisionType = Literal[
     "ESCALATE_TO_HUMAN",
 ]
 
+ConfidenceLevel = Literal[
+    "HIGH",
+    "MEDIUM",
+    "LOW",
+]
+
 class CitationInternal(BaseModel):
     policy_id: str
     chunk_id: Optional[str] = None
@@ -52,6 +58,12 @@ class HITLQueueItem(BaseModel):
     created_at: Optional[str] = None
     decision_snapshot: Optional[Dict[str, Any]] = None
 
+class ConfidenceFactor(BaseModel):
+    factor: str
+    impact: float
+    direction: str
+    description: str
+    evidence: Dict[str, Any] = Field(default_factory=dict)
 
 class EvaluationResponse(BaseModel):
     transaction_id: str
@@ -84,6 +96,9 @@ class EvaluationResponse(BaseModel):
 
     audit_saved: bool
     audit_event_id: Optional[str] = None
+
+    confidence_level: ConfidenceLevel
+    confidence_factors: List[ConfidenceFactor] = Field(default_factory=list)
 
     agent_trace: List[Dict[str, Any]] = Field(default_factory=list)
     decision_trace: List[Dict[str, Any]] = Field(default_factory=list)

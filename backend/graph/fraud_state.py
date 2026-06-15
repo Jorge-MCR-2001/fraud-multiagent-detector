@@ -67,6 +67,12 @@ class FraudEvaluationState(TypedDict, total = False):
     audit_saved: Optional[bool]
     audit_event_id: Optional[str]
     audit_file: Optional[str]
+    audit_event: Dict[str, Any]
+    evaluation_id: Optional[str]
+    
+    # Confidence
+    confidence_level: Optional[str]
+    confidence_factors: List[Dict[str, Any]]
 
     # Manejo de Errores
     errors: List[Dict[str, Any]]

@@ -1,6 +1,7 @@
 from typing import Dict, Any, List, Optional
 
 from agents.base_agent import BaseAgent
+from services.confidence_scoring_service import build_confidence_assessment
 
 class DecisionArbiterAgent(BaseAgent):
 
@@ -13,14 +14,6 @@ class DecisionArbiterAgent(BaseAgent):
     """
 
     name: str = "DecisionArbiterAgent"
-
-    # Mapa de decisiones validas
-    VALID_DECISIONS = {
-        "APPROVE",
-        "CHALLENGE",
-        "BLOCK",
-        "ESCALATE_TO_HUMAN"
-    }
 
     def run(self, state: Dict[str, Any]) -> Dict[str, Any]:
 
@@ -54,6 +47,9 @@ class DecisionArbiterAgent(BaseAgent):
 
             state["decision"] = decision_result["decision"]
             state["confidence"] = decision_result["confidence"]
+            state["confidence_level"] = decision_result["confidence_level"]
+            state["confidence_factors"] = decision_result["confidence_factors"]
+
             state["decision_basis"] = decision_result["decision_basis"]
             state["decision_rationale"] = decision_result["decision_rationale"]
             state["requires_human_review"] = decision_result["requires_human_review"]
@@ -65,8 +61,11 @@ class DecisionArbiterAgent(BaseAgent):
                 details={
                     "decision": state["decision"],
                     "confidence": state["confidence"],
+                    "confidence_level": state["confidence_level"],
+                    "confidence_factors_count": len(state.get("confidence_factors", [])),
                     "requires_human_review": state["requires_human_review"], # Inserccion de estado para revision de humano
-                    "decision_basis": decision_result.get("decision_basis") # Declaracion de criterio interno para la decision
+                    "basis_type": state["decision_basis"].get("basis_type"),
+                    "applied_rule": state["decision_basis"].get("applied_rule", {})
                 }
             )
 
@@ -181,7 +180,7 @@ class DecisionArbiterAgent(BaseAgent):
             basis = "fallback_low_risk"
             requires_human_review = False
 
-        # Construccion de desicion internar
+        # Construccion de desicion interna
         decision_rationale = self._build_decision_rationale(
             decision=decision,
             basis=basis,
@@ -193,10 +192,28 @@ class DecisionArbiterAgent(BaseAgent):
             contradiction_detected=contradiction_detected,
         )
 
+        confidence_assessment = build_confidence_assessment(
+            decision=decision,
+            basis=basis,
+            base_confidence=confidence,
+            signal_tags=signal_tags,
+            signals=signals,
+            rag_policy_ids=rag_policy_ids,
+            citations_internal=citations_internal,
+            external_signals=external_signals,
+            citations_external=citations_external,
+            pro_fraud_score=pro_fraud_score,
+            customer_trust_score=customer_trust_score,
+            contradiction_detected=contradiction_detected,
+            requires_human_review=requires_human_review,
+        )
+
+        final_confidence = confidence_assessment["confidence"]
+
         # Constriuccion de trazabilidad de decision
         decision_trace = self._build_decision_trace(
             decision=decision,
-            confidence=confidence,
+            confidence=final_confidence,
             basis=basis,
             signal_tags=signal_tags,
             signals=signals,
@@ -213,7 +230,7 @@ class DecisionArbiterAgent(BaseAgent):
         decision_basis = self._build_decision_basis(
             basis=basis,
             decision=decision,
-            confidence=confidence,
+            confidence=final_confidence,
             signal_tags=signal_tags,
             signals=signals,
             rag_policy_ids=rag_policy_ids,
@@ -228,9 +245,13 @@ class DecisionArbiterAgent(BaseAgent):
             requires_human_review=requires_human_review,
         )
 
+        
+                
         return {
             "decision": decision,
-            "confidence": round(confidence, 2),
+            "confidence": final_confidence,
+            "confidence_level": confidence_assessment["confidence_level"],
+            "confidence_factors": confidence_assessment["confidence_factors"],
             "decision_rationale": decision_rationale,
             "requires_human_review": requires_human_review,
             "decision_trace": decision_trace,
