@@ -11,12 +11,18 @@ from schemas.hitl_schema import (
     HITLResolveResponse,
 )
 
+from services.error_handler import build_error_response
+
 from services.hitl_queue_service import (
     list_hitl_queue,
     get_hitl_item,
     resolve_hitl_item,
 )
-from services.error_handler import build_error_response
+
+from services.runtime_health_service import (
+    build_liveness_status,
+    build_readiness_status,
+)
 
 from settings.paths import (
     POLICY_CHUNKS_JSON,
@@ -26,7 +32,6 @@ from settings.runtime_config import (
     LLM_ENABLED,
     get_runtime_metadata
 )
-
 
 from schemas.evaluation_response import EvaluationResponse
 
@@ -61,6 +66,21 @@ def healt():
         "schema_validation_enabled": True,
         "runtime": runtime,
     }
+
+    
+@app.get("/health/live")
+def health_live():
+    return build_liveness_status()
+
+
+@app.get("/health/ready")
+def health_ready():
+    status = build_readiness_status()
+
+    if status["status"] != "ready":
+        raise HTTPException(status_code=503, detail=status)
+
+    return status
 
 @app.get(
         "/evaluate/{transaction_id}",
